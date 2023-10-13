@@ -3,7 +3,6 @@ import { Navbar } from '@/components/ui/navbar';
 import { ColorSchemeScript } from '@mantine/core';
 import '@mantine/core/styles.css';
 import { Inter } from 'next/font/google';
-import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
 

@@ -1,3 +1,4 @@
+import { AUTH_TOKEN_KEY } from '@/lib/constants';
 import {
   LoginUserType,
   RegisterUserType,
@@ -32,9 +33,9 @@ export const authApi = apiSlice.injectEndpoints({
 
           // setting the response to the local storage
           localStorage.setItem(
-            'isp-auth-token',
+            AUTH_TOKEN_KEY,
             JSON.stringify({
-              accessToken: token,
+              token,
               user: {
                 id: userData.id,
                 name: userData.name,

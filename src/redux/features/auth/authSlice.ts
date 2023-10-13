@@ -1,10 +1,11 @@
+import { RootState } from '@/redux/store';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface AuthState {
   user: {
     id: string;
     name: string;
-    role: string;
+    role: 'user' | 'admin' | 'super_admin' | '';
   };
   token: string;
 }
@@ -36,6 +37,9 @@ export const authSlice = createSlice({
     },
   },
 });
+
+export const selectUser = (state: RootState) => state.auth.user;
+export const selectAuth = (state: RootState) => state.auth;
 
 export const { loggedIn, loggedOut } = authSlice.actions;
 export default authSlice.reducer;
