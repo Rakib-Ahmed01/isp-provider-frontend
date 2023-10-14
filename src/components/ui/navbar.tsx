@@ -103,6 +103,13 @@ export function Navbar({ toggle, opened, classes }: NavbarProps) {
                   >
                     Dashboard
                   </UnstyledButton>
+                  <UnstyledButton
+                    component={Link}
+                    href={'/feedback'}
+                    className={classes.control}
+                  >
+                    Feedback
+                  </UnstyledButton>
                   <Menu>
                     <Menu.Target>
                       <UnstyledButton className={classes.control}>
@@ -175,13 +182,20 @@ export function Navbar({ toggle, opened, classes }: NavbarProps) {
             >
               Dashboard
             </UnstyledButton>
+            <UnstyledButton
+              component={Link}
+              href={'/feedback'}
+              className={classes.control}
+            >
+              Feedback
+            </UnstyledButton>
             <Menu>
               <Menu.Target>
                 <UnstyledButton className={classes.control}>
                   Account
                 </UnstyledButton>
               </Menu.Target>
-              <Menu.Dropdown>
+              <Menu.Dropdown left={18} top={300}>
                 <Menu.Item>
                   <Flex gap={5} justify={'start'} align={'center'}>
                     <Image
