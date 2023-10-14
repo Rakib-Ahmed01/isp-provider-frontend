@@ -1,5 +1,10 @@
-import Banner from '@/components/ui/banner';
-import Services from '@/components/ui/services';
+import Banner from '@/components/ui/home/banner';
+import ClientReviews from '@/components/ui/home/client-reviews';
+import FAQ from '@/components/ui/home/faq';
+import RecentBlogs from '@/components/ui/home/recent-blogs';
+import Services from '@/components/ui/home/services';
+import UpcomingEvents from '@/components/ui/home/upcoming-events';
+import WhatWeProvide from '@/components/ui/home/what-we-provide';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -12,6 +17,11 @@ export default function Home() {
     <main>
       <Banner />
       <Services />
+      <UpcomingEvents />
+      <WhatWeProvide />
+      <ClientReviews />
+      <FAQ />
+      <RecentBlogs />
     </main>
   );
 }

@@ -31,6 +31,7 @@ const navbarLinks: Navlink[] = [
   { id: 1, label: 'Home', href: '/' },
   { id: 2, label: 'Services', href: '/services' },
   { id: 3, label: 'FAQ', href: '/faq' },
+  { id: 4, label: 'Blog', href: '/blog' },
 ];
 
 type NavbarProps = {
