@@ -1,4 +1,4 @@
-import { Button } from '@mantine/core';
+import Banner from '@/components/ui/banner';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -9,10 +9,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <main>
-      Home Page
-      <Button variant="outline" className="sm:text-red-500 md:text-green-500">
-        Click
-      </Button>
+      <Banner />
     </main>
   );
 }

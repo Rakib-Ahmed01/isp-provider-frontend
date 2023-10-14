@@ -2,10 +2,12 @@ import { validateEmail } from '@/utils/validate-email';
 import z from 'zod';
 
 export const registerUserZodSchema = z.object({
-  name: z.string({
-    required_error: 'Name is required',
-    invalid_type_error: 'Name must be string',
-  }),
+  name: z
+    .string({
+      required_error: 'Name is required',
+      invalid_type_error: 'Name must be string',
+    })
+    .min(1, 'Name must be at least 1 character long'),
   password: z
     .string({
       required_error: 'Password is required',

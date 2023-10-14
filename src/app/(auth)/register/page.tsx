@@ -17,7 +17,7 @@ import {
   Text,
   TextInput,
 } from '@mantine/core';
-import { useForm } from '@mantine/form';
+import { useForm, zodResolver } from '@mantine/form';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
@@ -26,6 +26,7 @@ export default function Register(props: PaperProps) {
   const [register, { isLoading }] = useRegisterMutation();
   const router = useRouter();
   const form = useForm({
+    validate: zodResolver(registerUserZodSchema),
     initialValues: {
       email: '',
       name: '',
@@ -37,8 +38,7 @@ export default function Register(props: PaperProps) {
     values: Omit<RegisterUserType, 'profileImg'>
   ) => {
     try {
-      const { email, name, password } = registerUserZodSchema.parse(values);
-
+      const { email, name, password } = values;
       await register({
         email,
         name,
@@ -69,26 +69,16 @@ export default function Register(props: PaperProps) {
             <TextInput
               label="Name"
               placeholder="Your name"
-              value={form.values.name}
-              onChange={(event) =>
-                form.setFieldValue('name', event.currentTarget.value)
-              }
+              {...form.getInputProps('name')}
               radius="md"
-              required
             />
             <TextInput
-              required
               label="Email"
               placeholder="hello@mantine.dev"
-              value={form.values.email}
-              onChange={(event) =>
-                form.setFieldValue('email', event.currentTarget.value)
-              }
-              error={form.errors.email && 'Invalid email'}
+              {...form.getInputProps('email')}
               radius="md"
             />
             <PasswordInput
-              required
               label="Password"
               placeholder="Your password"
               value={form.values.password}

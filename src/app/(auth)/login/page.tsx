@@ -17,7 +17,7 @@ import {
   Text,
   TextInput,
 } from '@mantine/core';
-import { useForm } from '@mantine/form';
+import { useForm, zodResolver } from '@mantine/form';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
@@ -26,6 +26,7 @@ export default function Login(props: PaperProps) {
   const [login, { isLoading }] = useLoginMutation();
   const router = useRouter();
   const form = useForm({
+    validate: zodResolver(loginUserZodSchema),
     initialValues: {
       email: '',
       password: '',
@@ -34,9 +35,9 @@ export default function Login(props: PaperProps) {
 
   const handleLogin = async (values: LoginUserType) => {
     try {
-      const { email, password } = loginUserZodSchema.parse(values);
+      const { email, password } = values;
 
-      const res = await login({
+      await login({
         email,
         password,
       }).unwrap();
@@ -63,28 +64,15 @@ export default function Login(props: PaperProps) {
         <form onSubmit={form.onSubmit(handleLogin)}>
           <Stack>
             <TextInput
-              required
               label="Email"
-              placeholder="hello@mantine.dev"
-              value={form.values.email}
-              onChange={(event) =>
-                form.setFieldValue('email', event.currentTarget.value)
-              }
-              error={form.errors.email && 'Invalid email'}
+              placeholder="yourname@example.com"
+              {...form.getInputProps('email')}
               radius="md"
             />
             <PasswordInput
-              required
               label="Password"
               placeholder="Your password"
-              value={form.values.password}
-              onChange={(event) =>
-                form.setFieldValue('password', event.currentTarget.value)
-              }
-              error={
-                form.errors.password &&
-                'Password should include at least 6 characters'
-              }
+              {...form.getInputProps('password')}
               radius="md"
             />
           </Stack>
