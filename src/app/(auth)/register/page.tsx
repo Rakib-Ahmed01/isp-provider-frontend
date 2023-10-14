@@ -1,5 +1,6 @@
 'use client';
 
+import { useEdgeStore } from '@/lib/edgestore';
 import {
   RegisterUserType,
   registerUserZodSchema,
@@ -9,6 +10,7 @@ import {
   Anchor,
   Button,
   Container,
+  FileInput,
   Group,
   Paper,
   PaperProps,
@@ -20,32 +22,37 @@ import {
 import { useForm, zodResolver } from '@mantine/form';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { toast } from 'sonner';
 
 export default function Register(props: PaperProps) {
   const [register, { isLoading }] = useRegisterMutation();
+  const [isImageUploading, setIsImageUploading] = useState<boolean>(false);
   const router = useRouter();
+  const { edgestore } = useEdgeStore();
   const form = useForm({
     validate: zodResolver(registerUserZodSchema),
     initialValues: {
       email: '',
       name: '',
       password: '',
+      profileImg: '' as unknown as File,
     },
   });
 
-  const handleRegister = async (
-    values: Omit<RegisterUserType, 'profileImg'>
-  ) => {
+  const handleRegister = async (values: RegisterUserType) => {
     try {
-      const { email, name, password } = values;
+      setIsImageUploading(true);
+      const { email, name, password, profileImg } = values;
+      const res = await edgestore.publicFiles.upload({
+        file: profileImg,
+      });
       await register({
         email,
         name,
         password,
-        profileImg: `${name}.jpg`,
+        profileImg: res.url as unknown as File & string,
       }).unwrap();
-
       toast.success('Successfully registered. Login now...');
       router.push('/login');
     } catch (error: any) {
@@ -54,6 +61,8 @@ export default function Register(props: PaperProps) {
       }
 
       toast.error('Something went wrong');
+    } finally {
+      setIsImageUploading(false);
     }
   };
 
@@ -67,28 +76,31 @@ export default function Register(props: PaperProps) {
         <form onSubmit={form.onSubmit(handleRegister)}>
           <Stack>
             <TextInput
+              withAsterisk
               label="Name"
               placeholder="Your name"
               {...form.getInputProps('name')}
               radius="md"
             />
             <TextInput
+              withAsterisk
               label="Email"
-              placeholder="hello@mantine.dev"
+              placeholder="yourname@example.com"
               {...form.getInputProps('email')}
               radius="md"
             />
             <PasswordInput
+              withAsterisk
               label="Password"
               placeholder="Your password"
-              value={form.values.password}
-              onChange={(event) =>
-                form.setFieldValue('password', event.currentTarget.value)
-              }
-              error={
-                form.errors.password &&
-                'Password should include at least 6 characters'
-              }
+              {...form.getInputProps('password')}
+              radius="md"
+            />
+            <FileInput
+              withAsterisk
+              label="Profile image"
+              placeholder="Profile image"
+              {...form.getInputProps('profileImg')}
               radius="md"
             />
           </Stack>
@@ -97,7 +109,11 @@ export default function Register(props: PaperProps) {
             <Anchor component={Link} href={'/login'} c="dimmed" size="xs">
               {'Already have an account? Login'}
             </Anchor>
-            <Button type="submit" radius="xl" loading={isLoading}>
+            <Button
+              type="submit"
+              radius="xl"
+              loading={isLoading || isImageUploading}
+            >
               Register
             </Button>
           </Group>

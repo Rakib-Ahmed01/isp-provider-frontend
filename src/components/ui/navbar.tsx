@@ -15,7 +15,8 @@ import {
   UnstyledButton,
 } from '@mantine/core';
 import { MantineLogo } from '@mantine/ds';
-import { IconLogout, IconUser } from '@tabler/icons-react';
+import { IconLogout } from '@tabler/icons-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Spinner from './spinner';
@@ -111,13 +112,19 @@ export function Navbar({ toggle, opened, classes }: NavbarProps) {
                     <Menu.Dropdown>
                       <Menu.Item>
                         <Flex gap={5} justify={'start'} align={'center'}>
-                          <IconUser width={16} height={16} />
+                          <Image
+                            alt={user.name}
+                            src={user.profileImg}
+                            width={20}
+                            height={20}
+                            className="rounded-full"
+                          />
                           <Text>{user.name}</Text>
                         </Flex>
                       </Menu.Item>
                       <Menu.Item onClick={() => handleSignout()}>
                         <Flex gap={5} justify={'start'} align={'center'}>
-                          <IconLogout width={16} height={16} />
+                          <IconLogout width={20} height={20} />
                           <Text>Logout</Text>
                         </Flex>
                       </Menu.Item>
@@ -177,13 +184,19 @@ export function Navbar({ toggle, opened, classes }: NavbarProps) {
               <Menu.Dropdown>
                 <Menu.Item>
                   <Flex gap={5} justify={'start'} align={'center'}>
-                    <IconUser width={16} height={16} />
+                    <Image
+                      alt={user.name}
+                      src={user.profileImg}
+                      width={20}
+                      height={20}
+                      className="rounded-full"
+                    />
                     <Text>{user.name}</Text>
                   </Flex>
                 </Menu.Item>
                 <Menu.Item onClick={() => handleSignout()}>
                   <Flex gap={5} justify={'start'} align={'center'}>
-                    <IconLogout width={16} height={16} />
+                    <IconLogout width={20} height={20} />
                     <Text>Logout</Text>
                   </Flex>
                 </Menu.Item>

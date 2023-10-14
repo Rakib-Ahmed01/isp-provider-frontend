@@ -1,5 +1,6 @@
 'use client';
 
+import { EdgeStoreProvider } from '@/lib/edgestore';
 import { store } from '@/redux/store';
 import { MantineProvider } from '@mantine/core';
 import { FC, ReactNode } from 'react';
@@ -15,7 +16,7 @@ const Providers: FC<ProvidersProps> = ({ children }) => {
     <Provider store={store}>
       <MantineProvider defaultColorScheme="dark" withCssVariables>
         <Toaster richColors={true} />
-        {children}
+        <EdgeStoreProvider>{children}</EdgeStoreProvider>
       </MantineProvider>
     </Provider>
   );

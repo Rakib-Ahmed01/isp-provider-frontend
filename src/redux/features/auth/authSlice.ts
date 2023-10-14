@@ -6,6 +6,7 @@ export interface AuthState {
     id: string;
     name: string;
     role: 'user' | 'admin' | 'super_admin' | '';
+    profileImg: string;
   };
   token: string;
 }
@@ -16,6 +17,7 @@ const initialState: AuthState = {
     id: '',
     name: '',
     role: '',
+    profileImg: '',
   },
 };
 
@@ -33,6 +35,7 @@ export const authSlice = createSlice({
         id: '',
         name: '',
         role: '',
+        profileImg: '',
       };
     },
   },

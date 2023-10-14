@@ -40,6 +40,7 @@ export const authApi = apiSlice.injectEndpoints({
                 id: userData.id,
                 name: userData.name,
                 role: userData.role,
+                profileImg: userData.profileImg,
               },
             })
           );
@@ -52,6 +53,7 @@ export const authApi = apiSlice.injectEndpoints({
                 id: userData.id,
                 name: userData.name,
                 role: userData.role,
+                profileImg: userData.profileImg,
               },
             })
           );

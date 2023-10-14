@@ -1,6 +1,14 @@
 import { validateEmail } from '@/utils/validate-email';
 import z from 'zod';
 
+const MAX_FILE_SIZE = 1024 * 1024 * 1;
+const ACCEPTED_IMAGE_TYPES = [
+  'image/jpeg',
+  'image/jpg',
+  'image/png',
+  'image/webp',
+];
+
 export const registerUserZodSchema = z.object({
   name: z
     .string({
@@ -20,10 +28,19 @@ export const registerUserZodSchema = z.object({
       invalid_type_error: 'Email must be string',
     })
     .refine(validateEmail, 'Please provide a valid email'),
-  // profileImg: z.string({
-  //   required_error: 'Profile image is required',
-  //   invalid_type_error: 'Profile image must be string',
-  // }),
+  profileImg: z
+    .custom<File>((val) => val instanceof File, 'Please upload an image')
+    .refine((file) => ACCEPTED_IMAGE_TYPES.includes(file.type), {
+      message: 'Please choose an image file',
+    })
+    .refine(
+      (file) => {
+        return file.size < MAX_FILE_SIZE;
+      },
+      {
+        message: 'Please choose a file smaller than 1MB',
+      }
+    ),
 });
 
 export type RegisterUserType = z.infer<typeof registerUserZodSchema>;
