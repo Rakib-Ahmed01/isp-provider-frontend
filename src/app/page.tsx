@@ -1,4 +1,5 @@
 import Banner from '@/components/ui/banner';
+import Services from '@/components/ui/services';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -10,6 +11,7 @@ export default function Home() {
   return (
     <main>
       <Banner />
+      <Services />
     </main>
   );
 }
