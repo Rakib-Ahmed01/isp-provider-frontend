@@ -1,9 +1,10 @@
 'use client';
 
 import useAuthCheck from '@/hooks/useAuthCheck';
+import { signout } from '@/lib/signout';
 import { selectUser } from '@/redux/features/auth/authSlice';
-import { useAppSelector } from '@/redux/hooks';
-import classes from '@/styles/navbar.module.css';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+// import classes from '@/styles/navbar.module.css';
 import {
   AppShell,
   Burger,
@@ -14,9 +15,10 @@ import {
   UnstyledButton,
 } from '@mantine/core';
 import { MantineLogo } from '@mantine/ds';
-import { useDisclosure } from '@mantine/hooks';
 import { IconLogout, IconUser } from '@tabler/icons-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import Spinner from './spinner';
 
 type Navlink = {
   id: number;
@@ -26,28 +28,36 @@ type Navlink = {
 
 const navbarLinks: Navlink[] = [
   { id: 1, label: 'Home', href: '/' },
-  { id: 2, label: 'Dashboard', href: '/dashboard' },
+  { id: 2, label: 'Services', href: '/services' },
+  { id: 3, label: 'FAQ', href: '/faq' },
 ];
 
-export function Navbar({ children }: { children: React.ReactNode }) {
-  const [opened, { toggle }] = useDisclosure();
+type NavbarProps = {
+  toggle: () => void;
+  opened: boolean;
+  classes: {
+    readonly [key: string]: string;
+  };
+};
+
+export function Navbar({ toggle, opened, classes }: NavbarProps) {
   const user = useAppSelector(selectUser);
   const { authChecked, isAuthChecking } = useAuthCheck();
+  const dispatch = useAppDispatch();
+  const router = useRouter();
 
   if (!authChecked && isAuthChecking) {
-    return <p>Loading...</p>;
+    return <Spinner />;
   }
 
+  const handleSignout = () => {
+    signout(dispatch);
+    router.push('/');
+    router.refresh();
+  };
+
   return (
-    <AppShell
-      header={{ height: 60 }}
-      navbar={{
-        width: 300,
-        breakpoint: 'sm',
-        collapsed: { desktop: true, mobile: !opened },
-      }}
-      padding="md"
-    >
+    <>
       <AppShell.Header>
         <Group h="100%" px="md">
           <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
@@ -64,44 +74,63 @@ export function Navbar({ children }: { children: React.ReactNode }) {
                   {link.label}
                 </UnstyledButton>
               ))}
-              {!user ? (
-                <UnstyledButton
-                  component={Link}
-                  href={'/register'}
-                  className={classes.control}
-                >
-                  Register
-                </UnstyledButton>
+
+              {!user.name ? (
+                <>
+                  <UnstyledButton
+                    component={Link}
+                    href={'/register'}
+                    className={classes.control}
+                  >
+                    Register
+                  </UnstyledButton>
+                  <UnstyledButton
+                    component={Link}
+                    href={'/login'}
+                    className={classes.control}
+                  >
+                    Login
+                  </UnstyledButton>
+                </>
               ) : null}
-              {user ? (
-                <Menu>
-                  <Menu.Target>
-                    <UnstyledButton className={classes.control}>
-                      Account
-                    </UnstyledButton>
-                  </Menu.Target>
-                  <Menu.Dropdown>
-                    <Menu.Item>
-                      <Flex gap={5} justify={'space-between'} align={'center'}>
-                        <IconUser width={16} height={16} />
-                        <Text>{user.name}</Text>
-                      </Flex>
-                    </Menu.Item>
-                    <Menu.Item>
-                      <Flex gap={5} justify={'space-between'} align={'center'}>
-                        <IconLogout width={16} height={16} />
-                        <Text>Logout</Text>
-                      </Flex>
-                    </Menu.Item>
-                  </Menu.Dropdown>
-                </Menu>
+              {user.name ? (
+                <>
+                  <UnstyledButton
+                    component={Link}
+                    href={'/dashboard'}
+                    className={classes.control}
+                  >
+                    Dashboard
+                  </UnstyledButton>
+                  <Menu>
+                    <Menu.Target>
+                      <UnstyledButton className={classes.control}>
+                        Account
+                      </UnstyledButton>
+                    </Menu.Target>
+                    <Menu.Dropdown>
+                      <Menu.Item>
+                        <Flex gap={5} justify={'start'} align={'center'}>
+                          <IconUser width={16} height={16} />
+                          <Text>{user.name}</Text>
+                        </Flex>
+                      </Menu.Item>
+                      <Menu.Item onClick={() => handleSignout()}>
+                        <Flex gap={5} justify={'start'} align={'center'}>
+                          <IconLogout width={16} height={16} />
+                          <Text>Logout</Text>
+                        </Flex>
+                      </Menu.Item>
+                    </Menu.Dropdown>
+                  </Menu>
+                </>
               ) : null}
             </Group>
           </Group>
         </Group>
       </AppShell.Header>
 
-      <AppShell.Navbar py="md" px={4}>
+      <AppShell.Navbar py="md" px={4} hidden={!opened}>
         {navbarLinks.map((link) => (
           <UnstyledButton
             component={Link}
@@ -112,17 +141,57 @@ export function Navbar({ children }: { children: React.ReactNode }) {
             {link.label}
           </UnstyledButton>
         ))}
-        {!user ? (
-          <UnstyledButton
-            component={Link}
-            href={'/register'}
-            className={classes.control}
-          >
-            Register
-          </UnstyledButton>
+        {!user.name ? (
+          <>
+            <UnstyledButton
+              component={Link}
+              href={'/register'}
+              className={classes.control}
+            >
+              Register
+            </UnstyledButton>
+            <UnstyledButton
+              component={Link}
+              href={'/login'}
+              className={classes.control}
+            >
+              Login
+            </UnstyledButton>
+          </>
+        ) : null}
+        {user.name ? (
+          <>
+            <UnstyledButton
+              component={Link}
+              href={'/dashboard'}
+              className={classes.control}
+            >
+              Dashboard
+            </UnstyledButton>
+            <Menu>
+              <Menu.Target>
+                <UnstyledButton className={classes.control}>
+                  Account
+                </UnstyledButton>
+              </Menu.Target>
+              <Menu.Dropdown>
+                <Menu.Item>
+                  <Flex gap={5} justify={'start'} align={'center'}>
+                    <IconUser width={16} height={16} />
+                    <Text>{user.name}</Text>
+                  </Flex>
+                </Menu.Item>
+                <Menu.Item onClick={() => handleSignout()}>
+                  <Flex gap={5} justify={'start'} align={'center'}>
+                    <IconLogout width={16} height={16} />
+                    <Text>Logout</Text>
+                  </Flex>
+                </Menu.Item>
+              </Menu.Dropdown>
+            </Menu>
+          </>
         ) : null}
       </AppShell.Navbar>
-      <AppShell.Main>{children}</AppShell.Main>
-    </AppShell>
+    </>
   );
 }

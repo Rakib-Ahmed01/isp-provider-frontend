@@ -41,9 +41,9 @@ export default function Login(props: PaperProps) {
         password,
       }).unwrap();
 
-      console.log({ res });
-
       toast.success('Successfully logged in');
+      router.push('/dashboard');
+      router.refresh();
     } catch (error: any) {
       console.log(error);
       if (error?.data?.errors && error.data.errors[0].message) {

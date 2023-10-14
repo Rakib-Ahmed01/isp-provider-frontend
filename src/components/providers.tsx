@@ -12,12 +12,12 @@ interface ProvidersProps {
 
 const Providers: FC<ProvidersProps> = ({ children }) => {
   return (
-    <MantineProvider defaultColorScheme="dark">
-      <Provider store={store}>
+    <Provider store={store}>
+      <MantineProvider defaultColorScheme="dark" withCssVariables>
         <Toaster richColors={true} />
         {children}
-      </Provider>
-    </MantineProvider>
+      </MantineProvider>
+    </Provider>
   );
 };
 

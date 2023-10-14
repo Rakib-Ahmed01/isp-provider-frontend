@@ -1,21 +1,23 @@
+'use client';
+
 import Providers from '@/components/providers';
 import { Navbar } from '@/components/ui/navbar';
-import { ColorSchemeScript } from '@mantine/core';
+import classes from '@/styles/navbar.module.css';
+import { AppShell, AppShellMain, ColorSchemeScript } from '@mantine/core';
 import '@mantine/core/styles.css';
+import { useDisclosure } from '@mantine/hooks';
 import { Inter } from 'next/font/google';
+import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
-
-export const metadata = {
-  title: 'Mantine',
-  description: 'I have followed setup instructions carefully',
-};
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const [opened, { toggle }] = useDisclosure();
+
   return (
     <html lang="en">
       <head>
@@ -23,7 +25,18 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <Providers>
-          <Navbar>{children}</Navbar>
+          <AppShell
+            header={{ height: 60 }}
+            navbar={{
+              width: 300,
+              breakpoint: 'sm',
+              collapsed: { desktop: true, mobile: !opened },
+            }}
+            padding="md"
+          >
+            <Navbar toggle={toggle} opened={opened} classes={classes} />
+            <AppShellMain>{children}</AppShellMain>
+          </AppShell>
         </Providers>
       </body>
     </html>
