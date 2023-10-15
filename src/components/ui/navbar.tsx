@@ -29,7 +29,7 @@ type Navlink = {
 
 const navbarLinks: Navlink[] = [
   { id: 1, label: 'Home', href: '/' },
-  { id: 2, label: 'Services', href: '/services' },
+  { id: 2, label: 'Plans', href: '/plans' },
   { id: 3, label: 'FAQ', href: '/faq' },
   { id: 4, label: 'Blog', href: '/blog' },
 ];

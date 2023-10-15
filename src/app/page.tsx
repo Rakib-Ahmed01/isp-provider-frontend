@@ -1,8 +1,8 @@
 import Banner from '@/components/ui/home/banner';
 import ClientReviews from '@/components/ui/home/client-reviews';
 import FAQ from '@/components/ui/home/faq';
+import Plans from '@/components/ui/home/plans';
 import RecentBlogs from '@/components/ui/home/recent-blogs';
-import Services from '@/components/ui/home/services';
 import UpcomingEvents from '@/components/ui/home/upcoming-events';
 import WhatWeProvide from '@/components/ui/home/what-we-provide';
 import { Metadata } from 'next';
@@ -16,7 +16,7 @@ export default function Home() {
   return (
     <main>
       <Banner />
-      <Services />
+      <Plans />
       <UpcomingEvents />
       <WhatWeProvide />
       <ClientReviews />
