@@ -10,7 +10,7 @@ import { useUser } from '@/hooks/useUser';
 import { Box, Burger, Drawer } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconShoppingCart, IconUser } from '@tabler/icons-react';
-import { redirect } from 'next/navigation';
+import { redirect, usePathname } from 'next/navigation';
 
 const data: DashboardSidebarProps['data'] = [
   {
@@ -33,6 +33,14 @@ export default function DashboardLayout({
   const [opened, { toggle }] = useDisclosure();
   const user = useUser();
   const { isAuthChecking } = useAuthCheck();
+  const pathname = usePathname();
+  let initialActive = '';
+
+  if (pathname.includes('orders')) {
+    initialActive = 'Orders';
+  } else {
+    initialActive = 'Profile';
+  }
 
   if (isAuthChecking) {
     return <Spinner />;
@@ -53,7 +61,7 @@ export default function DashboardLayout({
   return (
     <section className="flex gap-5">
       <div className="hidden sm:block">
-        <DashboardSidebar data={data} initialActive="Profile" />
+        <DashboardSidebar data={data} initialActive={initialActive} />
       </div>
       <Box className="fixed bottom-5 right-5 sm:hidden">
         <Burger
@@ -69,7 +77,7 @@ export default function DashboardLayout({
         title="Dashboard"
         size={'xs'}
       >
-        <DashboardSidebar data={data} initialActive="Profile" />
+        <DashboardSidebar data={data} initialActive={initialActive} />
       </Drawer>
       {children}
     </section>

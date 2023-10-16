@@ -34,4 +34,15 @@ type User = {
   profileImg: string;
 };
 
+type Order = {
+  id: string;
+  status: Status;
+  orderDate: string;
+  createdAt: string;
+  updatedAt: string;
+  plan: Plan;
+};
+
+type Status = 'pending' | 'delivered' | 'canceled';
+
 type Role = 'user' | 'admin' | 'super_admin';
