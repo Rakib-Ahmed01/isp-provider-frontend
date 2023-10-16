@@ -28,8 +28,8 @@ export default function Login(props: PaperProps) {
   const form = useForm({
     validate: zodResolver(loginUserZodSchema),
     initialValues: {
-      email: '',
-      password: '',
+      email: 'rakibahmed@gmail.com',
+      password: '123456',
     },
   });
 

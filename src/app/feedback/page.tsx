@@ -1,6 +1,5 @@
 'use client';
 
-import Unauthorized from '@/components/ui/unauthrized';
 import { useUser } from '@/hooks/useUser';
 import {
   CreateFeedbackInput,
@@ -9,14 +8,12 @@ import {
 import { useCreateFeedbackMutation } from '@/redux/features/feedback/feedbackApi';
 import { Box, Button, Group, TextInput, Textarea, Title } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { redirect } from 'next/navigation';
 import { toast } from 'sonner';
 
 export default function Feedback() {
   const [createFeedback, { isLoading }] = useCreateFeedbackMutation();
   const user = useUser();
-  const router = useRouter();
   const form = useForm({
     validate: zodResolver(createFeedbackZodSchema),
     initialValues: {
@@ -25,14 +22,8 @@ export default function Feedback() {
     },
   });
 
-  useEffect(() => {
-    if (!user.name) {
-      router.push('/login');
-    }
-  }, [router, user]);
-
   if (!user.name) {
-    return <Unauthorized />;
+    return redirect('/login');
   }
 
   const handleSubmit = async (values: CreateFeedbackInput) => {

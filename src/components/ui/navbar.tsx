@@ -18,7 +18,7 @@ import { MantineLogo } from '@mantine/ds';
 import { IconLogout } from '@tabler/icons-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { redirect } from 'next/navigation';
 import Spinner from './spinner';
 
 type Navlink = {
@@ -46,7 +46,6 @@ export function Navbar({ toggle, opened, classes }: NavbarProps) {
   const user = useAppSelector(selectUser);
   const { authChecked, isAuthChecking } = useAuthCheck();
   const dispatch = useAppDispatch();
-  const router = useRouter();
 
   if (!authChecked && isAuthChecking) {
     return <Spinner />;
@@ -54,8 +53,7 @@ export function Navbar({ toggle, opened, classes }: NavbarProps) {
 
   const handleSignout = () => {
     signout(dispatch);
-    router.push('/');
-    router.refresh();
+    return redirect('/');
   };
 
   return (
@@ -196,7 +194,7 @@ export function Navbar({ toggle, opened, classes }: NavbarProps) {
                   Account
                 </UnstyledButton>
               </Menu.Target>
-              <Menu.Dropdown left={18} top={300}>
+              <Menu.Dropdown left={18} top={390}>
                 <Menu.Item>
                   <Flex gap={5} justify={'start'} align={'center'}>
                     <Image

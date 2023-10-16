@@ -29,13 +29,19 @@ export const registerUserZodSchema = z.object({
     })
     .refine(validateEmail, 'Please provide a valid email'),
   profileImg: z
-    .custom<File>((val) => val instanceof File, 'Please upload an image')
-    .refine((file) => ACCEPTED_IMAGE_TYPES.includes(file.type), {
-      message: 'Please choose an image file',
-    })
+    .custom<File>((val) => {
+      return val instanceof File || typeof val === 'string';
+    }, 'Please upload an image')
+    .refine(
+      (file) =>
+        ACCEPTED_IMAGE_TYPES.includes(file?.type) || typeof file === 'string',
+      {
+        message: 'Please choose an image file',
+      }
+    )
     .refine(
       (file) => {
-        return file.size < MAX_FILE_SIZE;
+        return file.size < MAX_FILE_SIZE || typeof file === 'string';
       },
       {
         message: 'Please choose a file smaller than 1MB',
