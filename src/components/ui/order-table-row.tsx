@@ -59,7 +59,7 @@ const OrderTableRow: FC<OrderTableRowProps> = ({ order }) => {
                 disabled={isOrderDeleting}
                 onClick={handleOrderDelete}
               >
-                Cancel order
+                Cancel Order
               </Menu.Item>
             </Menu.Dropdown>
           </Menu>

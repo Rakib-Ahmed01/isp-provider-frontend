@@ -49,7 +49,8 @@ const Plans: FC<PlansProps> = () => {
     );
   }
 
-  const plans = data as Plan[];
+  const plans = (data as Plan[]) || [];
+  console.log({ plans });
 
   return (
     <Box component="section" mt={'50'}>
