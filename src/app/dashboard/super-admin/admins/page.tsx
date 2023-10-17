@@ -20,13 +20,13 @@ const Admins: FC<AdminsProps> = () => {
 
   const admins = (data as User[]) || [];
 
-  const handleUpdateUser = async (user: User) => {
+  const handleRemoveFromAdmin = async (user: User) => {
     try {
       await updateUser({
         ...user,
         role: 'user',
       });
-      toast.success('User removed from admin');
+      toast.success(`${user.name} is no longer an admin`);
     } catch (error: any) {
       console.log(error);
       if (error?.data?.errors && error.data.errors[0].message) {
@@ -70,7 +70,7 @@ const Admins: FC<AdminsProps> = () => {
                         <Menu.Item
                           color="red.7"
                           disabled={isUserUpdating}
-                          onClick={() => handleUpdateUser(user)}
+                          onClick={() => handleRemoveFromAdmin(user)}
                         >
                           Remove from Admin{' '}
                         </Menu.Item>

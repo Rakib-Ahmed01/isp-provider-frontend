@@ -32,6 +32,7 @@ type User = {
   password: string;
   role: Role;
   profileImg: string;
+  isBanned: boolean;
 };
 
 type Order = {

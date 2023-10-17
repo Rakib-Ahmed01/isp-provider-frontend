@@ -20,24 +20,9 @@ const Users: FC<UsersProps> = () => {
 
   const users = (data as User[]) || [];
 
-  const handleAddToAdmin = async (user: User) => {
-    try {
-      await updateUser({
-        ...user,
-        role: 'admin',
-      });
-      toast.success(`${user.name} is now an admin`);
-    } catch (error: any) {
-      console.log(error);
-      if (error?.data?.errors && error.data.errors[0].message) {
-        return toast.error(error.data.errors[0].message);
-      }
+  console.log({ users });
 
-      toast.error('Something went wrong');
-    }
-  };
-
-  const handleBanOrUnbanUser = async (status: boolean, userId: string) => {
+  const handleUpdateUser = async (status: boolean, userId: string) => {
     try {
       await updateUser({
         isBanned: status,
@@ -94,30 +79,20 @@ const Users: FC<UsersProps> = () => {
                       <Menu.Dropdown>
                         {user.isBanned ? (
                           <Menu.Item
-                            onClick={() => handleBanOrUnbanUser(false, user.id)}
+                            onClick={() => handleUpdateUser(false, user.id)}
                             disabled={isUserUpdating}
                             color="green.7"
                           >
                             Unban User
                           </Menu.Item>
                         ) : (
-                          <>
-                            <Menu.Item
-                              onClick={() => handleAddToAdmin(user)}
-                              disabled={isUserUpdating}
-                            >
-                              Make Admin
-                            </Menu.Item>
-                            <Menu.Item
-                              onClick={() =>
-                                handleBanOrUnbanUser(true, user.id)
-                              }
-                              disabled={isUserUpdating}
-                              color="red.7"
-                            >
-                              Ban User
-                            </Menu.Item>
-                          </>
+                          <Menu.Item
+                            onClick={() => handleUpdateUser(true, user.id)}
+                            disabled={isUserUpdating}
+                            color="red.7"
+                          >
+                            Ban User
+                          </Menu.Item>
                         )}
                       </Menu.Dropdown>
                     </Menu>
