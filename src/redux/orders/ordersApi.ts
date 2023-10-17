@@ -9,6 +9,19 @@ const ordersApi = apiSlice.injectEndpoints({
         return baseQueryReturnValue.data;
       },
     }),
+    getAllOrders: builder.query({
+      query: () => `/orders`,
+      transformResponse(baseQueryReturnValue: any) {
+        return baseQueryReturnValue.data;
+      },
+    }),
+    updateOrder: builder.mutation({
+      query: (body) => ({
+        url: `/orders/${body.id}`,
+        method: 'PATCH',
+        body,
+      }),
+    }),
     deleteOrder: builder.mutation({
       query: (id: string) => ({
         url: `/orders/${id}`,
@@ -18,4 +31,9 @@ const ordersApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetOrdersByUserQuery, useDeleteOrderMutation } = ordersApi;
+export const {
+  useGetOrdersByUserQuery,
+  useDeleteOrderMutation,
+  useGetAllOrdersQuery,
+  useUpdateOrderMutation,
+} = ordersApi;

@@ -8,28 +8,24 @@ import useAuthCheck from '@/hooks/useAuthCheck';
 import { useUser } from '@/hooks/useUser';
 import { Box, Burger, Drawer } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import {
-  IconShoppingCart,
-  IconUser,
-  IconUsersGroup,
-} from '@tabler/icons-react';
+import { IconBolt, IconUser, IconUsersGroup } from '@tabler/icons-react';
 import { redirect, usePathname } from 'next/navigation';
 
 const data: DashboardSidebarProps['data'] = [
   {
     icon: IconUser,
     label: 'Profile',
-    link: '/dashboard/admin',
+    link: '/dashboard/super-admin',
   },
   {
     icon: IconUsersGroup,
     label: 'Users',
-    link: '/dashboard/admin/users',
+    link: '/dashboard/super-admin/users',
   },
   {
-    icon: IconShoppingCart,
-    label: 'Orders',
-    link: '/dashboard/admin/orders',
+    icon: IconBolt,
+    label: 'Admins',
+    link: '/dashboard/super-admin/admins',
   },
 ];
 
@@ -46,8 +42,8 @@ export default function DashboardLayout({
 
   if (pathname.includes('users')) {
     initialActive = 'Users';
-  } else if (pathname.includes('Orders')) {
-    initialActive = 'Orders';
+  } else if (pathname.includes('Admins')) {
+    initialActive = 'Admins';
   } else {
     initialActive = 'Profile';
   }
@@ -64,8 +60,8 @@ export default function DashboardLayout({
     return redirect('/dashboard/user');
   }
 
-  if (user.role === 'super_admin') {
-    return redirect('/dashboard/super-admin');
+  if (user.role === 'admin') {
+    return redirect('/dashboard/admin');
   }
 
   return (

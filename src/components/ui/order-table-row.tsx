@@ -1,8 +1,9 @@
 'use client';
 
-import { useDeleteOrderMutation } from '@/redux/orders/ordersApi';
+import { useUpdateOrderMutation } from '@/redux/orders/ordersApi';
 import { Badge, Menu, Table, rem } from '@mantine/core';
-import { IconDotsVertical, IconTrash } from '@tabler/icons-react';
+import { IconCheck, IconDotsVertical, IconTrash } from '@tabler/icons-react';
+import { usePathname } from 'next/navigation';
 import { FC } from 'react';
 import { toast } from 'sonner';
 
@@ -11,13 +12,18 @@ interface OrderTableRowProps {
 }
 
 const OrderTableRow: FC<OrderTableRowProps> = ({ order }) => {
-  const [deleteOrder, { isLoading: isOrderDeleting }] =
-    useDeleteOrderMutation();
+  const [updateOrder, { isLoading: isOrderUpdating }] =
+    useUpdateOrderMutation();
+  const pathname = usePathname();
+  const isAdminPage = pathname?.includes('admin');
 
-  const handleOrderDelete = async () => {
+  const handleOrderUpdate = async (status: string) => {
     try {
-      await deleteOrder(order.id).unwrap();
-      toast.success('Order canceled');
+      await updateOrder({
+        status,
+        id: order.id,
+      }).unwrap();
+      toast.success(`Order ${status}`);
     } catch (error: any) {
       console.log(error);
       if (error.data.errors && error.data.errors[0].message) {
@@ -51,13 +57,25 @@ const OrderTableRow: FC<OrderTableRowProps> = ({ order }) => {
               <IconDotsVertical className=" cursor-pointer" />
             </Menu.Target>
             <Menu.Dropdown>
+              {isAdminPage ? (
+                <Menu.Item
+                  color="green.7"
+                  leftSection={
+                    <IconCheck style={{ width: rem(14), height: rem(14) }} />
+                  }
+                  onClick={() => handleOrderUpdate('delivered')}
+                  disabled={isOrderUpdating}
+                >
+                  Deliver Order
+                </Menu.Item>
+              ) : null}
               <Menu.Item
                 color="red.7"
                 leftSection={
                   <IconTrash style={{ width: rem(14), height: rem(14) }} />
                 }
-                disabled={isOrderDeleting}
-                onClick={handleOrderDelete}
+                disabled={isOrderUpdating}
+                onClick={() => handleOrderUpdate('canceled')}
               >
                 Cancel Order
               </Menu.Item>

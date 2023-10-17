@@ -38,7 +38,7 @@ const User: FC<UserProps> = () => {
           <Text>Name: {user.name}</Text>
           <Text>Email: {user.email}</Text>
           <Text>Role: {upperFirst(user.role)}</Text>
-          <Button component={Link} href={'/dashboard/user/update'}>
+          <Button component={Link} href={'/dashboard/user/update-profile'}>
             Update
           </Button>
         </Stack>

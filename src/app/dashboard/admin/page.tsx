@@ -17,7 +17,7 @@ const Admin: FC<AdminProps> = () => {
     return <Spinner />;
   }
 
-  const user = data as User;
+  const user = (data || {}) as User;
 
   return (
     <Box className="w-full mx-auto">
@@ -37,8 +37,13 @@ const Admin: FC<AdminProps> = () => {
 
           <Text>Name: {user.name}</Text>
           <Text>Email: {user.email}</Text>
-          <Text>Role: {upperFirst(user.role)}</Text>
-          <Button component={Link} href={'/dashboard/admin/update'}>
+          <Text>
+            Role:{' '}
+            {upperFirst(user.role.split('_')[0]) +
+              ' ' +
+              upperFirst(user.role.split('_')[1])}
+          </Text>
+          <Button component={Link} href={'/dashboard/admin/update-profile'}>
             Update
           </Button>
         </Stack>

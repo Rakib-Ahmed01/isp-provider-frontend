@@ -61,7 +61,7 @@ const UpdateProfile: FC<UpdateProfileProps> = () => {
       const { name, profileImg } = values;
 
       if (user.name === name && user.profileImg === profileImg) {
-        router.push('/dashboard/user');
+        router.push('/dashboard/super-admin');
         return;
       }
 
@@ -86,7 +86,7 @@ const UpdateProfile: FC<UpdateProfileProps> = () => {
       }
 
       toast.success('Successfully updated profile');
-      router.push('/dashboard/user');
+      router.push('/dashboard/super-admin');
     } catch (error: any) {
       console.log(error);
       if (error?.data?.errors && error.data.errors[0].message) {

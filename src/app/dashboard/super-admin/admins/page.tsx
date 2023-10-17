@@ -1,7 +1,6 @@
 'use client';
 
 import Spinner from '@/components/ui/spinner';
-import { useUser } from '@/hooks/useUser';
 import { useGetAdminsQuery } from '@/redux/features/admin/adminApi';
 import { useUpdateUserMutation } from '@/redux/user/userApi';
 import { Badge, Box, Menu, Table, Title } from '@mantine/core';
@@ -14,7 +13,6 @@ interface AdminsProps {}
 const Admins: FC<AdminsProps> = () => {
   const { data, isLoading } = useGetAdminsQuery('');
   const [updateUser, { isLoading: isUserUpdating }] = useUpdateUserMutation();
-  const loggedInUser = useUser();
 
   if (isLoading) {
     return <Spinner />;
@@ -54,36 +52,34 @@ const Admins: FC<AdminsProps> = () => {
           </Table.Tr>
         </Table.Thead>
         <Table.Tbody>
-          {admins.length > 1 ? (
-            (admins || [])
-              .filter((user) => user.id !== loggedInUser.id)
-              .map((user) => {
-                return (
-                  <Table.Tr key={user.id}>
-                    <Table.Td>{user.name}</Table.Td>
-                    <Table.Td>{user.email}</Table.Td>
-                    <Table.Td>
-                      <Badge>{user.role}</Badge>
-                    </Table.Td>
-                    <Table.Td>
-                      <Menu>
-                        <Menu.Target>
-                          <IconDotsVertical className=" cursor-pointer" />
-                        </Menu.Target>
-                        <Menu.Dropdown>
-                          <Menu.Item
-                            color="red.7"
-                            disabled={isUserUpdating}
-                            onClick={() => handleUpdateUser(user)}
-                          >
-                            Remove from Admin{' '}
-                          </Menu.Item>
-                        </Menu.Dropdown>
-                      </Menu>
-                    </Table.Td>
-                  </Table.Tr>
-                );
-              })
+          {admins.length > 0 ? (
+            (admins || []).map((user) => {
+              return (
+                <Table.Tr key={user.id}>
+                  <Table.Td>{user.name}</Table.Td>
+                  <Table.Td>{user.email}</Table.Td>
+                  <Table.Td>
+                    <Badge>{user.role}</Badge>
+                  </Table.Td>
+                  <Table.Td>
+                    <Menu>
+                      <Menu.Target>
+                        <IconDotsVertical className=" cursor-pointer" />
+                      </Menu.Target>
+                      <Menu.Dropdown>
+                        <Menu.Item
+                          color="red.7"
+                          disabled={isUserUpdating}
+                          onClick={() => handleUpdateUser(user)}
+                        >
+                          Remove from Admin{' '}
+                        </Menu.Item>
+                      </Menu.Dropdown>
+                    </Menu>
+                  </Table.Td>
+                </Table.Tr>
+              );
+            })
           ) : (
             <Table.Tr>
               <Table.Td colSpan={6}>No admins yet</Table.Td>
