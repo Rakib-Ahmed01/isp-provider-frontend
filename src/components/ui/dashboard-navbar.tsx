@@ -1,6 +1,7 @@
 'use client';
 
 import classes from '@/styles/dashboardnavbar.module.css';
+import { Flex } from '@mantine/core';
 import { TablerIconsProps } from '@tabler/icons-react';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -30,8 +31,12 @@ export function DashboardSidebar({
         setActive(item.label);
       }}
     >
-      <item.icon className={classes.linkIcon} stroke={1.5} />
-      <span className=" truncate">{item.label}</span>
+      <Flex align="center" gap={3}>
+        <span className="w-4 h-4 rounded-full inline-block mr-3 mb-2">
+          <item.icon className={classes.linkIcon} stroke={1.5} />
+        </span>
+        <span className=" truncate">{item.label}</span>
+      </Flex>
     </Link>
   ));
 

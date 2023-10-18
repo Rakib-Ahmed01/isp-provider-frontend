@@ -2,6 +2,14 @@ import { apiSlice } from '@/redux/api/apiSlice';
 
 const plansApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
+    addPlan: builder.mutation({
+      query: (body) => ({
+        url: '/plans',
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: ['Plan'],
+    }),
     getPlans: builder.query({
       query: (size: number) => `/plans?size=${size}`,
       transformResponse(baseQueryReturnValue: any, meta, arg) {
@@ -39,4 +47,5 @@ export const {
   useGetPlanQuery,
   useUpdatePlanMutation,
   useDeletePlanMutation,
+  useAddPlanMutation,
 } = plansApi;

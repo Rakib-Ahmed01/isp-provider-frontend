@@ -10,6 +10,9 @@ import { useUser } from '@/hooks/useUser';
 import { Box, Burger, Drawer } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import {
+  IconBrandBlogger,
+  IconBuildingBroadcastTower,
+  IconQuestionMark,
   IconShoppingCart,
   IconUser,
   IconUsersGroup,
@@ -32,6 +35,21 @@ const data: DashboardSidebarProps['data'] = [
     label: 'Orders',
     link: '/dashboard/admin/orders',
   },
+  {
+    icon: IconBuildingBroadcastTower,
+    label: 'Plans',
+    link: '/dashboard/admin/plans',
+  },
+  {
+    icon: IconBrandBlogger,
+    label: 'Blogs',
+    link: '/dashboard/admin/blogs',
+  },
+  {
+    icon: IconQuestionMark,
+    label: 'FAQs',
+    link: '/dashboard/admin/faqs',
+  },
 ];
 
 export default function DashboardLayout({
@@ -47,10 +65,16 @@ export default function DashboardLayout({
 
   if (pathname.includes('users')) {
     initialActive = 'Users';
-  } else if (pathname.includes('Orders')) {
+  } else if (pathname.includes('orders')) {
     initialActive = 'Orders';
-  } else {
+  } else if (pathname.includes('plans')) {
+    initialActive = 'Plans';
+  } else if (pathname.includes('blogs')) {
+    initialActive = 'Blogs';
+  } else if (pathname.includes('profile')) {
     initialActive = 'Profile';
+  } else if (pathname.includes('faqs')) {
+    initialActive = 'FAQs';
   }
 
   if (isAuthChecking) {
