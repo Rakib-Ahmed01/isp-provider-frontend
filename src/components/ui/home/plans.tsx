@@ -16,11 +16,12 @@ import {
 } from '@mantine/core';
 import Link from 'next/link';
 import { FC } from 'react';
+import CustomError from '../custom-error';
 
 interface PlansProps {}
 
 const Plans: FC<PlansProps> = () => {
-  const { isLoading, data } = useGetPlansQuery(3);
+  const { isLoading, data, isError } = useGetPlansQuery(3);
 
   if (isLoading) {
     return (
@@ -49,8 +50,18 @@ const Plans: FC<PlansProps> = () => {
     );
   }
 
+  if (isError) {
+    return (
+      <Box component="section" mt={'50'}>
+        <Title order={1} className="text-center" my={25}>
+          Plans
+        </Title>
+        <CustomError text="plans" />
+      </Box>
+    );
+  }
+
   const plans = (data as Plan[]) || [];
-  console.log({ plans });
 
   return (
     <Box component="section" mt={'50'}>

@@ -1,5 +1,6 @@
 'use client';
 
+import CustomError from '@/components/ui/custom-error';
 import Spinner from '@/components/ui/spinner';
 import { useUser } from '@/hooks/useUser';
 import {
@@ -40,7 +41,7 @@ interface PlanProps {
 }
 
 const Plan: FC<PlanProps> = ({ params: { planId } }) => {
-  const { isLoading, data } = useGetPlanQuery(planId);
+  const { isLoading, data, isError } = useGetPlanQuery(planId);
   const [createReview, { isLoading: isCreateReviewLoading }] =
     useCreateReviewMutation();
   const user = useUser();
@@ -57,9 +58,11 @@ const Plan: FC<PlanProps> = ({ params: { planId } }) => {
     return <Spinner />;
   }
 
-  const plan = data as Plan;
+  if (isError) {
+    return <CustomError text="plans" />;
+  }
 
-  console.log({ plan });
+  const plan = data as Plan;
 
   const handleCreateReview = async (values: CreateReviewType) => {
     try {

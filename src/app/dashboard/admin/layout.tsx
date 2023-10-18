@@ -4,6 +4,7 @@ import {
   DashboardSidebar,
   DashboardSidebarProps,
 } from '@/components/ui/dashboard-navbar';
+import Spinner from '@/components/ui/spinner';
 import useAuthCheck from '@/hooks/useAuthCheck';
 import { useUser } from '@/hooks/useUser';
 import { Box, Burger, Drawer } from '@mantine/core';
@@ -53,7 +54,7 @@ export default function DashboardLayout({
   }
 
   if (isAuthChecking) {
-    return null;
+    return <Spinner />;
   }
 
   if (!user.name) {

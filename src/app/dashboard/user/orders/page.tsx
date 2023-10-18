@@ -1,5 +1,6 @@
 'use client';
 
+import CustomError from '@/components/ui/custom-error';
 import OrderTableRow from '@/components/ui/order-table-row';
 import Spinner from '@/components/ui/spinner';
 import { useGetOrdersByUserQuery } from '@/redux/features/orders/ordersApi';
@@ -9,10 +10,14 @@ import { FC } from 'react';
 interface OrdersProps {}
 
 const Orders: FC<OrdersProps> = () => {
-  const { data, isLoading } = useGetOrdersByUserQuery('');
+  const { data, isLoading, isError } = useGetOrdersByUserQuery('');
 
   if (isLoading) {
     return <Spinner />;
+  }
+
+  if (isError) {
+    return <CustomError text="orders" />;
   }
 
   const orders = (data as Order[]) || [];

@@ -1,5 +1,6 @@
 'use client';
 
+import CustomError from '@/components/ui/custom-error';
 import Spinner from '@/components/ui/spinner';
 import { useGetUsersQuery } from '@/redux/features/admin/adminApi';
 import { useUpdateUserMutation } from '@/redux/features/user/userApi';
@@ -11,11 +12,15 @@ import { toast } from 'sonner';
 interface UsersProps {}
 
 const Users: FC<UsersProps> = () => {
-  const { data, isLoading } = useGetUsersQuery('');
+  const { data, isLoading, isError: isGetUsersError } = useGetUsersQuery('');
   const [updateUser, { isLoading: isUserUpdating }] = useUpdateUserMutation();
 
   if (isLoading) {
     return <Spinner />;
+  }
+
+  if (isGetUsersError) {
+    return <CustomError text="users" />;
   }
 
   const users = (data as User[]) || [];

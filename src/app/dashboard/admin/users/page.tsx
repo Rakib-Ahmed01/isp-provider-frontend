@@ -20,8 +20,6 @@ const Users: FC<UsersProps> = () => {
 
   const users = (data as User[]) || [];
 
-  console.log({ users });
-
   const handleUpdateUser = async (status: boolean, userId: string) => {
     try {
       await updateUser({

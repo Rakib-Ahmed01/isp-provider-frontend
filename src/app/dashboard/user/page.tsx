@@ -1,5 +1,6 @@
 'use client';
 
+import CustomError from '@/components/ui/custom-error';
 import Spinner from '@/components/ui/spinner';
 import { useGetUserProfileQuery } from '@/redux/features/user/userApi';
 import { Box, Button, Card, Stack, Text, Title } from '@mantine/core';
@@ -11,10 +12,14 @@ import { FC } from 'react';
 interface UserProps {}
 
 const User: FC<UserProps> = () => {
-  const { data, isLoading } = useGetUserProfileQuery('');
+  const { data, isLoading, isError } = useGetUserProfileQuery('');
 
   if (isLoading) {
     return <Spinner />;
+  }
+
+  if (isError) {
+    return <CustomError text="profile" />;
   }
 
   const user = data as User;

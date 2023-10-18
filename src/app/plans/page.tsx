@@ -1,5 +1,6 @@
 'use client';
 
+import CustomError from '@/components/ui/custom-error';
 import { useGetPlansQuery } from '@/redux/features/plans/plansApi';
 import {
   Badge,
@@ -24,7 +25,7 @@ import { FC, useState } from 'react';
 interface PlansProps {}
 
 const Plans: FC<PlansProps> = () => {
-  const { isLoading, data } = useGetPlansQuery(10000);
+  const { isLoading, data, isError } = useGetPlansQuery(10000);
   const [opened, { open, close }] = useDisclosure(false);
   const [[minPrice, maxPrice], setPrice] = useState<[number, number]>([
     0, 4000,
@@ -54,6 +55,10 @@ const Plans: FC<PlansProps> = () => {
         </SimpleGrid>
       </Box>
     );
+  }
+
+  if (isError) {
+    return <CustomError text="plans" />;
   }
 
   const plans = data as Plan[];

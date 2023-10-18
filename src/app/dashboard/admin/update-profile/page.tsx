@@ -1,5 +1,6 @@
 'use client';
 
+import CustomError from '@/components/ui/custom-error';
 import Spinner from '@/components/ui/spinner';
 import { useEdgeStore } from '@/lib/edgestore';
 import { updateUserZodSchema } from '@/lib/validations/user';
@@ -26,7 +27,7 @@ import { toast } from 'sonner';
 interface UpdateProfileProps {}
 
 const UpdateProfile: FC<UpdateProfileProps> = () => {
-  const { data, isLoading } = useGetUserProfileQuery('');
+  const { data, isLoading, isError } = useGetUserProfileQuery('');
   const form = useForm({
     validate: zodResolver(updateUserZodSchema),
     initialValues: {
@@ -50,6 +51,10 @@ const UpdateProfile: FC<UpdateProfileProps> = () => {
 
   if (isLoading) {
     return <Spinner />;
+  }
+
+  if (isError) {
+    return <CustomError text="profile" />;
   }
 
   const user = data as User;
