@@ -79,9 +79,9 @@ const Faqs: FC<FaqsProps> = () => {
         {faqs.map((faq) => (
           <Card key={faq.id} withBorder className="space-y-2">
             <Flex justify={'space-between'} align={'center'}>
-              <Text fw={600} c={'blue.6'}>
+              <Title order={4} fw={600} c={'blue.7'}>
                 {faq.question}
-              </Text>
+              </Title>
               <Menu>
                 <Menu.Target>
                   <IconDotsVertical cursor={'pointer'} width={20} height={20} />

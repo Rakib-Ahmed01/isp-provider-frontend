@@ -71,10 +71,10 @@ export default function DashboardLayout({
     initialActive = 'Plans';
   } else if (pathname.includes('blogs')) {
     initialActive = 'Blogs';
-  } else if (pathname.includes('profile')) {
-    initialActive = 'Profile';
   } else if (pathname.includes('faqs')) {
     initialActive = 'FAQs';
+  } else {
+    initialActive = 'Profile';
   }
 
   if (isAuthChecking) {
