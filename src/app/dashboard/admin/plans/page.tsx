@@ -66,7 +66,7 @@ const Plans: FC<PlansProps> = () => {
     const confirmed = confirm(`Are you sure you want to delete ${plan.title}?`);
     if (confirmed) {
       try {
-        await deletePlan(plan.id);
+        await deletePlan(plan.id).unwrap();
         toast.success(`${plan.title} deleted successfully`);
       } catch (error: any) {
         console.log(error);

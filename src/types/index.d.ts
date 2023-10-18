@@ -44,6 +44,12 @@ type Order = {
   plan: Plan;
 };
 
+type Faq = {
+  id: string;
+  question: string;
+  answer: string;
+};
+
 type Status = 'pending' | 'delivered' | 'canceled';
 
 type Role = 'user' | 'admin' | 'super_admin';

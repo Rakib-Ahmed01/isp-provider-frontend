@@ -42,11 +42,10 @@ export default function Feedback() {
 
   return (
     <Box className="max-w-3xl" mx={'auto'}>
+      <Title order={2} size="h1" fw={800} ta="center">
+        Give us feedback
+      </Title>
       <form onSubmit={form.onSubmit(handleSubmit)}>
-        <Title order={2} size="h1" fw={800} ta="center">
-          Give us feedback
-        </Title>
-
         <TextInput
           withAsterisk
           label="Subject"
