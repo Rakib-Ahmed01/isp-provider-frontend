@@ -2,7 +2,7 @@
 
 import Spinner from '@/components/ui/spinner';
 import { useGetUsersQuery } from '@/redux/features/admin/adminApi';
-import { useUpdateUserMutation } from '@/redux/user/userApi';
+import { useUpdateUserMutation } from '@/redux/features/user/userApi';
 import { Badge, Box, Menu, Table, Title } from '@mantine/core';
 import { IconDotsVertical } from '@tabler/icons-react';
 import { FC } from 'react';

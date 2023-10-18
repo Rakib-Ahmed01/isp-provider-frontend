@@ -1,6 +1,6 @@
 'use client';
 
-import { useGetPlansQuery } from '@/redux/features/services/plansApi';
+import { useGetPlansQuery } from '@/redux/features/plans/plansApi';
 import {
   Badge,
   Box,

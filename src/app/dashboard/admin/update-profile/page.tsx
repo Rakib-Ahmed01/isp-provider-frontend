@@ -6,7 +6,7 @@ import { updateUserZodSchema } from '@/lib/validations/user';
 import {
   useGetUserProfileQuery,
   useUpdateUserMutation,
-} from '@/redux/user/userApi';
+} from '@/redux/features/user/userApi';
 import {
   Box,
   Button,

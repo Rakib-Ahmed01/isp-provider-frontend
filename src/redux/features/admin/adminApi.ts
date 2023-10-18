@@ -6,11 +6,13 @@ const adminApi = apiSlice.injectEndpoints({
       query: () => '/users?role=user',
       transformResponse: (baseQueryReturnValue: any) =>
         baseQueryReturnValue.data,
+      providesTags: ['User'],
     }),
     getAdmins: builder.query({
       query: () => '/users?role=admin',
       transformResponse: (baseQueryReturnValue: any) =>
         baseQueryReturnValue.data,
+      providesTags: ['User'],
     }),
   }),
 });

@@ -6,8 +6,8 @@ import {
   CreateReviewType,
   createReviewZodSchema,
 } from '@/lib/validations/review';
+import { useGetPlanQuery } from '@/redux/features/plans/plansApi';
 import { useCreateReviewMutation } from '@/redux/features/reviews/reviewsApi';
-import { useGetPlanQuery } from '@/redux/features/services/plansApi';
 import {
   Avatar,
   Badge,

@@ -15,6 +15,7 @@ const reviewsApi = apiSlice.injectEndpoints({
         method: 'POST',
         body,
       }),
+      invalidatesTags: ['Review', 'Plan'],
     }),
   }),
 });

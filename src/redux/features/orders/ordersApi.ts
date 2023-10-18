@@ -1,19 +1,20 @@
-import { apiSlice } from '../api/apiSlice';
+import { apiSlice } from '../../api/apiSlice';
 
 const ordersApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getOrdersByUser: builder.query({
       query: () => `/orders/user/`,
-
       transformResponse: (baseQueryReturnValue: any) => {
         return baseQueryReturnValue.data;
       },
+      providesTags: ['Order'],
     }),
     getAllOrders: builder.query({
       query: () => `/orders`,
       transformResponse(baseQueryReturnValue: any) {
         return baseQueryReturnValue.data;
       },
+      providesTags: ['Order'],
     }),
     updateOrder: builder.mutation({
       query: (body) => ({
@@ -21,12 +22,14 @@ const ordersApi = apiSlice.injectEndpoints({
         method: 'PATCH',
         body,
       }),
+      invalidatesTags: ['Order'],
     }),
     deleteOrder: builder.mutation({
       query: (id: string) => ({
         url: `/orders/${id}`,
         method: 'DELETE',
       }),
+      invalidatesTags: ['Order'],
     }),
   }),
 });

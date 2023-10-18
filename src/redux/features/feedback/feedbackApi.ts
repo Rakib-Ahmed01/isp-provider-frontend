@@ -12,8 +12,17 @@ export const feedbackApi = apiSlice.injectEndpoints({
         method: 'POST',
         body,
       }),
+      invalidatesTags: ['Feedback'],
+    }),
+    getAllFeedbacks: builder.query({
+      query: () => ({
+        url: '/feedback',
+        method: 'GET',
+      }),
+      providesTags: ['Feedback'],
     }),
   }),
 });
 
-export const { useCreateFeedbackMutation } = feedbackApi;
+export const { useCreateFeedbackMutation, useGetAllFeedbacksQuery } =
+  feedbackApi;

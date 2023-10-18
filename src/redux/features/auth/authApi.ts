@@ -15,6 +15,7 @@ export const authApi = apiSlice.injectEndpoints({
         method: 'POST',
         body: data,
       }),
+      invalidatesTags: ['User'],
     }),
     login: builder.mutation<{ data: { token: string } }, LoginUserType>({
       query: (data) => ({
@@ -57,17 +58,12 @@ export const authApi = apiSlice.injectEndpoints({
               },
             })
           );
-          // update getUsers query cache data with the result
-          // dispatch(
-          //   apiSlice.util.updateQueryData('getUsers', undefined, (draft) => {
-          //     draft.push(result?.data?.user);
-          //   })
-          // );
         } catch (error) {
           // handle error
           console.log(error);
         }
       },
+      invalidatesTags: ['User'],
     }),
   }),
 });

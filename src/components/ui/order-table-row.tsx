@@ -1,6 +1,6 @@
 'use client';
 
-import { useUpdateOrderMutation } from '@/redux/orders/ordersApi';
+import { useUpdateOrderMutation } from '@/redux/features/orders/ordersApi';
 import { Badge, Menu, Table, rem } from '@mantine/core';
 import { IconCheck, IconDotsVertical, IconTrash } from '@tabler/icons-react';
 import { usePathname } from 'next/navigation';

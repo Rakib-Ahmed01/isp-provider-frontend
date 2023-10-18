@@ -2,7 +2,7 @@
 
 import OrderTableRow from '@/components/ui/order-table-row';
 import Spinner from '@/components/ui/spinner';
-import { useGetOrdersByUserQuery } from '@/redux/orders/ordersApi';
+import { useGetOrdersByUserQuery } from '@/redux/features/orders/ordersApi';
 import { Box, Table, Title } from '@mantine/core';
 import { FC } from 'react';
 

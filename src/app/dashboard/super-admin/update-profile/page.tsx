@@ -6,7 +6,7 @@ import { updateUserZodSchema } from '@/lib/validations/user';
 import {
   useGetUserProfileQuery,
   useUpdateUserMutation,
-} from '@/redux/user/userApi';
+} from '@/redux/features/user/userApi';
 import {
   Box,
   Button,
@@ -138,7 +138,11 @@ const UpdateProfile: FC<UpdateProfileProps> = () => {
             <TextInput
               label="Role"
               placeholder="Role"
-              defaultValue={upperFirst(user.role)}
+              defaultValue={
+                upperFirst(user.role.split('_')[0]) +
+                ' ' +
+                upperFirst(user.role.split('_')[1])
+              }
               disabled
             />
             <Button

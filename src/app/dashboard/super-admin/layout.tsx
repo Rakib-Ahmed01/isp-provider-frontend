@@ -8,7 +8,7 @@ import useAuthCheck from '@/hooks/useAuthCheck';
 import { useUser } from '@/hooks/useUser';
 import { Box, Burger, Drawer } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { IconBolt, IconUser, IconUsersGroup } from '@tabler/icons-react';
+import { IconBrandAuth0, IconUser, IconUsersGroup } from '@tabler/icons-react';
 import { redirect, usePathname } from 'next/navigation';
 
 const data: DashboardSidebarProps['data'] = [
@@ -23,7 +23,7 @@ const data: DashboardSidebarProps['data'] = [
     link: '/dashboard/super-admin/users',
   },
   {
-    icon: IconBolt,
+    icon: IconBrandAuth0,
     label: 'Admins',
     link: '/dashboard/super-admin/admins',
   },

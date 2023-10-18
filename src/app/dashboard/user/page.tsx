@@ -1,7 +1,7 @@
 'use client';
 
 import Spinner from '@/components/ui/spinner';
-import { useGetUserProfileQuery } from '@/redux/user/userApi';
+import { useGetUserProfileQuery } from '@/redux/features/user/userApi';
 import { Box, Button, Card, Stack, Text, Title } from '@mantine/core';
 import { upperFirst } from '@mantine/hooks';
 import Image from 'next/image';
