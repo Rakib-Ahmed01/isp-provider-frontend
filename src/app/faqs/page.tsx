@@ -22,7 +22,7 @@ const Faqs: FC<FaqsProps> = () => {
   const faqs = (data as Faq[]) || [];
 
   return (
-    <Box className="max-w-3xl" mx={'auto'}>
+    <Box className="max-w-3xl" mx={'auto'} mb={20}>
       <Title order={2} size="h1" fw={800} ta="center" mb={25}>
         Frequently Asked Questions
       </Title>

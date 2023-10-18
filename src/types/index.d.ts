@@ -50,6 +50,12 @@ type Faq = {
   answer: string;
 };
 
+type Blog = {
+  id: string;
+  title: string;
+  content: string;
+};
+
 type Status = 'pending' | 'delivered' | 'canceled';
 
 type Role = 'user' | 'admin' | 'super_admin';
