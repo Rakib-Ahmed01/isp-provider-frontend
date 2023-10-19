@@ -34,7 +34,7 @@ const Admins: FC<AdminsProps> = () => {
       await updateUser({
         ...user,
         role: 'user',
-      });
+      }).unwrap();
       toast.success(`${user.name} is no longer an admin`);
     } catch (error: any) {
       console.log(error);

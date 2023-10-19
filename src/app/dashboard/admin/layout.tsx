@@ -12,6 +12,7 @@ import { useDisclosure } from '@mantine/hooks';
 import {
   IconBrandBlogger,
   IconBuildingBroadcastTower,
+  IconMessageDots,
   IconQuestionMark,
   IconShoppingCart,
   IconUser,
@@ -50,6 +51,11 @@ const data: DashboardSidebarProps['data'] = [
     label: 'FAQs',
     link: '/dashboard/admin/faqs',
   },
+  {
+    icon: IconMessageDots,
+    label: 'Feedbacks',
+    link: '/dashboard/admin/feedbacks',
+  },
 ];
 
 export default function DashboardLayout({
@@ -73,6 +79,8 @@ export default function DashboardLayout({
     initialActive = 'Blogs';
   } else if (pathname.includes('faqs')) {
     initialActive = 'FAQs';
+  } else if (pathname.includes('feedbacks')) {
+    initialActive = 'Feedbacks';
   } else {
     initialActive = 'Profile';
   }

@@ -8,7 +8,7 @@ export const feedbackApi = apiSlice.injectEndpoints({
       CreateFeedbackInput & { userId: string }
     >({
       query: (body) => ({
-        url: '/feedback',
+        url: '/feedbacks',
         method: 'POST',
         body,
       }),
@@ -16,9 +16,12 @@ export const feedbackApi = apiSlice.injectEndpoints({
     }),
     getAllFeedbacks: builder.query({
       query: () => ({
-        url: '/feedback',
+        url: '/feedbacks',
         method: 'GET',
       }),
+      transformResponse(baseQueryReturnValue: any) {
+        return baseQueryReturnValue?.data;
+      },
       providesTags: ['Feedback'],
     }),
   }),

@@ -18,13 +18,6 @@ type Review = {
   plan: Plan;
 };
 
-type Feedback = {
-  id: string;
-  subject: string;
-  comment: string;
-  userId: string;
-};
-
 type User = {
   id: string;
   name: string;
@@ -54,6 +47,13 @@ type Blog = {
   id: string;
   title: string;
   content: string;
+};
+
+type Feedback = {
+  id: string;
+  subject: string;
+  comment: string;
+  user: User;
 };
 
 type Status = 'pending' | 'delivered' | 'canceled';

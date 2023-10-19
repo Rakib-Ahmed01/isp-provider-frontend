@@ -25,7 +25,7 @@ const Users: FC<UsersProps> = () => {
       await updateUser({
         isBanned: status,
         id: userId,
-      });
+      }).unwrap();
       toast.success(`${!status ? 'Unbanned' : 'Banned'} User`);
     } catch (error: any) {
       console.log(error);

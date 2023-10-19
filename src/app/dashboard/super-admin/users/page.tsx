@@ -30,7 +30,7 @@ const Users: FC<UsersProps> = () => {
       await updateUser({
         ...user,
         role: 'admin',
-      });
+      }).unwrap();
       toast.success(`${user.name} is now an admin`);
     } catch (error: any) {
       console.log(error);
@@ -47,7 +47,7 @@ const Users: FC<UsersProps> = () => {
       await updateUser({
         isBanned: status,
         id: userId,
-      });
+      }).unwrap();
       toast.success(`${!status ? 'Unbanned' : 'Banned'} User`);
     } catch (error: any) {
       console.log(error);
