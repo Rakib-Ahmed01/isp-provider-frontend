@@ -7,6 +7,7 @@ import {
   CreateReviewType,
   createReviewZodSchema,
 } from '@/lib/validations/review';
+import { useCreateOrederMutation } from '@/redux/features/orders/ordersApi';
 import { useGetPlanQuery } from '@/redux/features/plans/plansApi';
 import { useCreateReviewMutation } from '@/redux/features/reviews/reviewsApi';
 import {
@@ -44,6 +45,8 @@ const Plan: FC<PlanProps> = ({ params: { planId } }) => {
   const { isLoading, data, isError } = useGetPlanQuery(planId);
   const [createReview, { isLoading: isCreateReviewLoading }] =
     useCreateReviewMutation();
+  const [createOrder, { isLoading: isCreateOrderLoading }] =
+    useCreateOrederMutation();
   const user = useUser();
   const form = useForm({
     validate: zodResolver(createReviewZodSchema),
@@ -84,6 +87,20 @@ const Plan: FC<PlanProps> = ({ params: { planId } }) => {
     }
   };
 
+  const handleBuyNow = async () => {
+    try {
+      await createOrder({ planId, userId: user.id }).unwrap();
+      toast.success('Thank you for your order ❤');
+      router.push(`/dashboard/user/orders`);
+    } catch (error: any) {
+      console.log(error);
+      if (error?.data?.errors && error.data.errors[0].message) {
+        return toast.error(error.data.errors[0].message);
+      }
+      toast.error('Something went wrong');
+    }
+  };
+
   return (
     <main>
       <Stack gap={20} className="max-w-2xl mx-auto">
@@ -99,9 +116,33 @@ const Plan: FC<PlanProps> = ({ params: { planId } }) => {
                 <Badge variant="filled">{plan.price}BDT</Badge>
               </Group>
               <Text>{plan.description}</Text>
-              <Button w={'100%'} mt={'sm'} variant="filled">
-                Buy now
-              </Button>
+              {plan.isAvailable ? (
+                user.role === 'user' ? (
+                  <Button
+                    w={'100%'}
+                    mt={'sm'}
+                    variant="filled"
+                    loading={isCreateOrderLoading}
+                    onClick={handleBuyNow}
+                  >
+                    Buy now
+                  </Button>
+                ) : (
+                  <Button w={'100%'} mt={'sm'} variant="light">
+                    {`Only user can buy`}
+                  </Button>
+                )
+              ) : (
+                <Button
+                  w={'100%'}
+                  fw={500}
+                  mt={'sm'}
+                  variant="light"
+                  color="red.7"
+                >
+                  Not available
+                </Button>
+              )}
             </Box>
           </Stack>
         </Paper>

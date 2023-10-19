@@ -13,9 +13,11 @@ import {
   Menu,
   Text,
   UnstyledButton,
+  useComputedColorScheme,
+  useMantineColorScheme,
 } from '@mantine/core';
 import { MantineLogo } from '@mantine/ds';
-import { IconLogout } from '@tabler/icons-react';
+import { IconLogout, IconMoon, IconSun } from '@tabler/icons-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
@@ -46,6 +48,10 @@ export function Navbar({ toggle, opened, classes }: NavbarProps) {
   const user = useAppSelector(selectUser);
   const { authChecked, isAuthChecking } = useAuthCheck();
   const dispatch = useAppDispatch();
+  const { setColorScheme } = useMantineColorScheme();
+  const computedColorScheme = useComputedColorScheme('light', {
+    getInitialValueInEffect: true,
+  });
 
   if (!authChecked && isAuthChecking) {
     return <Spinner />;
@@ -64,6 +70,21 @@ export function Navbar({ toggle, opened, classes }: NavbarProps) {
           <Group justify="space-between" style={{ flex: 1 }}>
             <MantineLogo size={30} />
             <Group ml="xl" gap={0} visibleFrom="sm">
+              <UnstyledButton
+                onClick={() =>
+                  setColorScheme(
+                    computedColorScheme === 'light' ? 'dark' : 'light'
+                  )
+                }
+                variant="default"
+                aria-label="Toggle color scheme"
+              >
+                {computedColorScheme === 'dark' ? (
+                  <IconSun stroke={1.5} className="mt-2" />
+                ) : (
+                  <IconMoon stroke={1.5} className="mt-2" />
+                )}
+              </UnstyledButton>
               {navbarLinks.map((link) => (
                 <UnstyledButton
                   component={Link}
@@ -215,6 +236,21 @@ export function Navbar({ toggle, opened, classes }: NavbarProps) {
                 </Menu.Item>
               </Menu.Dropdown>
             </Menu>
+            <UnstyledButton
+              onClick={() =>
+                setColorScheme(
+                  computedColorScheme === 'light' ? 'dark' : 'light'
+                )
+              }
+              variant="default"
+              aria-label="Toggle color scheme"
+            >
+              {computedColorScheme === 'dark' ? (
+                <IconSun stroke={1.5} className="ml-3" />
+              ) : (
+                <IconMoon stroke={1.5} className="ml-3" />
+              )}
+            </UnstyledButton>
           </>
         ) : null}
       </AppShell.Navbar>

@@ -31,6 +31,14 @@ const ordersApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ['Order'],
     }),
+    createOreder: builder.mutation({
+      query: (body) => ({
+        url: `/orders`,
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: ['Order'],
+    }),
   }),
 });
 
@@ -39,4 +47,5 @@ export const {
   useDeleteOrderMutation,
   useGetAllOrdersQuery,
   useUpdateOrderMutation,
+  useCreateOrederMutation,
 } = ordersApi;
