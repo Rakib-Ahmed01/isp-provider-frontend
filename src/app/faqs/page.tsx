@@ -30,11 +30,9 @@ const Faqs: FC<FaqsProps> = () => {
         {faqs.map((faq) => (
           <Accordion.Item value={faq.id} key={faq.id}>
             <Accordion.Control>
-              <Text fw={600} c={'blue.6'}>
-                {faq.question}
-              </Text>
+              <Text fw={600}>{faq.question}</Text>
             </Accordion.Control>
-            <Accordion.Panel>{faq.answer}</Accordion.Panel>
+            <Accordion.Panel c={'dimmed'}>{faq.answer}</Accordion.Panel>
           </Accordion.Item>
         ))}
       </Accordion>

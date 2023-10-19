@@ -81,7 +81,7 @@ const Blogs: FC<BlogsProps> = () => {
         {blogs.map((blog) => (
           <Card key={blog.id} withBorder className="space-y-3">
             <Flex justify={'space-between'} align={'center'}>
-              <Title order={4} fw={600} c={'blue.7'}>
+              <Title order={4} fw={600}>
                 {blog.title}
               </Title>
               <Menu>
@@ -106,7 +106,7 @@ const Blogs: FC<BlogsProps> = () => {
                 </Menu.Dropdown>
               </Menu>
             </Flex>
-            <Text>{blog.content.slice(0, 200)}...</Text>
+            <Text c={'dimmed'}>{blog.content.slice(0, 200)}...</Text>
           </Card>
         ))}
       </SimpleGrid>

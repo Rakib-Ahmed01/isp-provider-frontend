@@ -109,13 +109,13 @@ const Plan: FC<PlanProps> = ({ params: { planId } }) => {
             <Skeleton h={250} animate={false} />
             <Box p={'xs'}>
               <Group justify="space-between">
-                <Flex align={'center'} gap={5}>
+                <Flex align={'center'} gap={5} mb={5}>
                   <Title order={3}>{plan.title}</Title>
                   <Badge variant="light">{plan.speed}Mbps</Badge>
                 </Flex>
                 <Badge variant="filled">{plan.price}BDT</Badge>
               </Group>
-              <Text>{plan.description}</Text>
+              <Text c={'dimmed'}>{plan.description}</Text>
               {plan.isAvailable ? (
                 user.role === 'user' ? (
                   <Button

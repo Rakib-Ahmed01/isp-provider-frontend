@@ -79,7 +79,7 @@ const Faqs: FC<FaqsProps> = () => {
         {faqs.map((faq) => (
           <Card key={faq.id} withBorder className="space-y-2">
             <Flex justify={'space-between'} align={'center'}>
-              <Title order={4} fw={600} c={'blue.7'}>
+              <Title order={4} fw={600}>
                 {faq.question}
               </Title>
               <Menu>
@@ -104,7 +104,7 @@ const Faqs: FC<FaqsProps> = () => {
                 </Menu.Dropdown>
               </Menu>
             </Flex>
-            <Text>{faq.answer}</Text>
+            <Text c={'dimmed'}>{faq.answer}</Text>
           </Card>
         ))}
       </SimpleGrid>

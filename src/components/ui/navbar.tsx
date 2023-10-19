@@ -16,11 +16,11 @@ import {
   useComputedColorScheme,
   useMantineColorScheme,
 } from '@mantine/core';
-import { MantineLogo } from '@mantine/ds';
 import { IconLogout, IconMoon, IconSun } from '@tabler/icons-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
+import Logo from './logo';
 import Spinner from './spinner';
 
 type Navlink = {
@@ -68,7 +68,10 @@ export function Navbar({ toggle, opened, classes }: NavbarProps) {
         <Group h="100%" px="md">
           <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
           <Group justify="space-between" style={{ flex: 1 }}>
-            <MantineLogo size={30} />
+            <Flex align={'center'}>
+              <Logo />
+              <Text fw={600}>QuickNet</Text>
+            </Flex>
             <Group ml="xl" gap={0} visibleFrom="sm">
               <UnstyledButton
                 onClick={() =>
@@ -78,6 +81,7 @@ export function Navbar({ toggle, opened, classes }: NavbarProps) {
                 }
                 variant="default"
                 aria-label="Toggle color scheme"
+                className={classes.control}
               >
                 {computedColorScheme === 'dark' ? (
                   <IconSun stroke={1.5} className="mt-2" />
@@ -244,6 +248,7 @@ export function Navbar({ toggle, opened, classes }: NavbarProps) {
               }
               variant="default"
               aria-label="Toggle color scheme"
+              className={classes.control}
             >
               {computedColorScheme === 'dark' ? (
                 <IconSun stroke={1.5} className="ml-3" />

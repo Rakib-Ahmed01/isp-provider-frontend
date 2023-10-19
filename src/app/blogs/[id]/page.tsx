@@ -26,9 +26,9 @@ const Blog: FC<BlogProps> = ({ params: { id } }) => {
   const blog = (data as Blog) || {};
 
   return (
-    <Card component="section" className="max-w-3xl mx-auto">
+    <Card withBorder component="section" className="max-w-3xl mx-auto">
       <Title mb={20}>{blog.title}</Title>
-      <Text>{blog.content}</Text>
+      <Text c={'dimmed'}>{blog.content}</Text>
     </Card>
   );
 };

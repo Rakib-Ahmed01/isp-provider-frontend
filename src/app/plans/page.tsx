@@ -9,6 +9,7 @@ import {
   Flex,
   Group,
   Modal,
+  Pagination,
   Paper,
   RangeSlider,
   SimpleGrid,
@@ -25,7 +26,11 @@ import { FC, useState } from 'react';
 interface PlansProps {}
 
 const Plans: FC<PlansProps> = () => {
-  const { isLoading, data, isError } = useGetPlansQuery(10000);
+  const [activePage, setPage] = useState<number>(1);
+  const { isLoading, data, isError } = useGetPlansQuery({
+    size: 5,
+    page: activePage,
+  });
   const [opened, { open, close }] = useDisclosure(false);
   const [[minPrice, maxPrice], setPrice] = useState<[number, number]>([
     0, 4000,
@@ -61,7 +66,7 @@ const Plans: FC<PlansProps> = () => {
     return <CustomError text="plans" />;
   }
 
-  const plans = data as Plan[];
+  const plans = data?.data as Plan[];
 
   const filteredPlans = plans.filter((plan) => {
     return (
@@ -140,13 +145,13 @@ const Plans: FC<PlansProps> = () => {
                   <Skeleton h={'200'} animate={false} />
                   <Box p={'xs'}>
                     <Group justify="space-between">
-                      <Flex align={'center'} gap={5}>
+                      <Flex align={'center'} gap={5} mb={5}>
                         <Title order={3}>{plan.title}</Title>
                         <Badge variant="light">{plan.speed}Mbps</Badge>
                       </Flex>
                       <Badge variant="filled">{plan.price}BDT</Badge>
                     </Group>
-                    <Text>{plan.description}</Text>
+                    <Text c={'dimmed'}>{plan.description}</Text>
                     <Button
                       component={Link}
                       href={`/plans/${plan.id}`}
@@ -163,6 +168,15 @@ const Plans: FC<PlansProps> = () => {
           })
         )}
       </SimpleGrid>
+
+      <Flex justify={'center'} className="mx-auto">
+        <Pagination
+          total={data?.meta?.totalPage || 10}
+          value={activePage}
+          onChange={setPage}
+          className="mt-10"
+        />
+      </Flex>
     </Box>
   );
 };

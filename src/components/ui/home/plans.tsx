@@ -21,7 +21,7 @@ import CustomError from '../custom-error';
 interface PlansProps {}
 
 const Plans: FC<PlansProps> = () => {
-  const { isLoading, data, isError } = useGetPlansQuery(3);
+  const { isLoading, data, isError } = useGetPlansQuery({ size: 3, page: 1 });
 
   if (isLoading) {
     return (
@@ -61,7 +61,7 @@ const Plans: FC<PlansProps> = () => {
     );
   }
 
-  const plans = (data as Plan[]) || [];
+  const plans = (data?.data as Plan[]) || [];
 
   return (
     <Box component="section" mt={'50'}>
@@ -86,7 +86,7 @@ const Plans: FC<PlansProps> = () => {
                     </Flex>
                     <Badge variant="filled">{plan.price}BDT</Badge>
                   </Group>
-                  <Text>{plan.description}</Text>
+                  <Text c={'dimmed'}>{plan.description}</Text>
                   <Button
                     component={Link}
                     href={`/plans/${plan.id}`}

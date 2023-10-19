@@ -50,10 +50,10 @@ const Feedbacks: FC<FeedbacksProps> = () => {
                 <Text>{feedback.user.email}</Text>
               </Flex>
             </Group>
-            <Title order={4} fw={600} c={'blue.7'}>
+            <Title order={4} fw={600}>
               {feedback.subject}
             </Title>
-            <Text>{feedback.comment}</Text>
+            <Text c={'dimmed'}>{feedback.comment}</Text>
           </Card>
         ))}
       </SimpleGrid>

@@ -11,9 +11,13 @@ const plansApi = apiSlice.injectEndpoints({
       invalidatesTags: ['Plan'],
     }),
     getPlans: builder.query({
-      query: (size: number) => `/plans?size=${size}`,
+      query: (params: { size: number; page: number }) =>
+        `/plans?size=${params.size}&page=${params?.page || 1}`,
       transformResponse(baseQueryReturnValue: any, meta, arg) {
-        return baseQueryReturnValue?.data;
+        return {
+          data: baseQueryReturnValue?.data,
+          meta: baseQueryReturnValue?.meta,
+        };
       },
       providesTags: ['Plan'],
     }),
