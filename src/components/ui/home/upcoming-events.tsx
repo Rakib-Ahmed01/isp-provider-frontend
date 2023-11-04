@@ -29,7 +29,7 @@ const events = [
 
 const UpcomingEvents: FC<UpcomingEventsProps> = () => {
   return (
-    <Box component="section" mt={'50'}>
+    <Box component="section" mt={'100'}>
       <Title order={1} className="text-center" my={25}>
         Upcoming Events
       </Title>

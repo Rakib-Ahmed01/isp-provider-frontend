@@ -52,7 +52,7 @@ const Plans: FC<PlansProps> = () => {
 
   if (isError) {
     return (
-      <Box component="section" mt={'50'}>
+      <Box component="section" mt={'45'}>
         <Title order={1} className="text-center" my={25}>
           Plans
         </Title>
@@ -64,7 +64,7 @@ const Plans: FC<PlansProps> = () => {
   const plans = (data?.data as Plan[]) || [];
 
   return (
-    <Box component="section" mt={'50'}>
+    <Box component="section" mt={'45'}>
       <Title order={1} className="text-center" my={25}>
         Plans
       </Title>
@@ -86,7 +86,9 @@ const Plans: FC<PlansProps> = () => {
                     </Flex>
                     <Badge variant="filled">{plan.price}BDT</Badge>
                   </Group>
-                  <Text c={'dimmed'}>{plan.description}</Text>
+                  <Text c={'dimmed'} className="line-clamp-3">
+                    {plan.description}
+                  </Text>
                   <Button
                     component={Link}
                     href={`/plans/${plan.id}`}

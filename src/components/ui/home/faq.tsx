@@ -22,7 +22,7 @@ const Faqs: FC<FaqsProps> = () => {
   const faqs = (data as Faq[]) || [];
 
   return (
-    <Box component="section" mt={50}>
+    <Box component="section" mt={'100'}>
       <Title order={2} size="h1" fw={800} ta="center" mb={25}>
         Frequently Asked Questions
       </Title>

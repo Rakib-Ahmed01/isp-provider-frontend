@@ -8,7 +8,6 @@ import { upperFirst } from '@mantine/hooks';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FC } from 'react';
-
 interface UserProps {}
 
 const User: FC<UserProps> = () => {

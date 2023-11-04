@@ -38,7 +38,7 @@ const Users: FC<UsersProps> = () => {
   };
 
   return (
-    <Box className="w-full mx-auto">
+    <Box className="mx-auto">
       <Title order={2} size="h1" fw={800} ta="center" mb={20}>
         Users
       </Title>

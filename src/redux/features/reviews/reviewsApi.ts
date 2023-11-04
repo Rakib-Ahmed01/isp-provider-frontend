@@ -17,7 +17,15 @@ const reviewsApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ['Review', 'Plan'],
     }),
+
+    getAllReviews: builder.query({
+      query: () => `/plans/reviews`,
+      transformResponse: (baseQueryReturnValue: any) => {
+        return baseQueryReturnValue.data;
+      },
+      providesTags: ['Review', 'Plan'],
+    }),
   }),
 });
 
-export const { useCreateReviewMutation } = reviewsApi;
+export const { useCreateReviewMutation, useGetAllReviewsQuery } = reviewsApi;

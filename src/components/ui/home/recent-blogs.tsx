@@ -23,7 +23,7 @@ const Blogs: FC<BlogsProps> = () => {
   const blogs = (data as Blog[]) || [];
 
   return (
-    <Box component="section" mt={50}>
+    <Box component="section" my={'100'}>
       <Title order={2} size="h1" fw={800} ta="center" mb={25}>
         Blogs
       </Title>
@@ -39,7 +39,9 @@ const Blogs: FC<BlogsProps> = () => {
             return (
               <Card withBorder key={blog.id} className="space-y-4">
                 <Title order={3}>{blog.title}</Title>
-                <Text c={'dimmed'}>{blog.content.slice(0, 200)}...</Text>
+                <Text c={'dimmed'} className="line-clamp-3">
+                  {blog.content.slice(0, 200)}...
+                </Text>
                 <Button
                   variant="light"
                   component={Link}

@@ -1,12 +1,12 @@
 import classes from '@/styles/footer.module.css';
-import { ActionIcon, Anchor, Group, rem } from '@mantine/core';
-import { MantineLogo } from '@mantine/ds';
+import { ActionIcon, Anchor, Flex, Group, Text, rem } from '@mantine/core';
 import {
   IconBrandInstagram,
   IconBrandTwitter,
   IconBrandYoutube,
 } from '@tabler/icons-react';
 import Link from 'next/link';
+import Logo from './logo';
 
 type Link = {
   link: string;
@@ -36,9 +36,12 @@ export function Footer() {
   ));
 
   return (
-    <div className={`${classes.footer} mt-5`}>
+    <div className={`${classes.footer} mt-5 container mx-auto`}>
       <div className={classes.inner}>
-        <MantineLogo size={28} />
+        <Flex align={'center'}>
+          <Logo />
+          <Text fw={600}>QuickNet</Text>
+        </Flex>
 
         <Group className={classes.links}>{items}</Group>
 

@@ -28,7 +28,10 @@ import { toast } from 'sonner';
 interface PlansProps {}
 
 const Plans: FC<PlansProps> = () => {
-  const { isLoading, data, isError } = useGetPlansQuery(10000);
+  const { isLoading, data, isError } = useGetPlansQuery({
+    page: 1,
+    size: 10000,
+  });
   const router = useRouter();
   const [deletePlan, { isLoading: isDeleting }] = useDeletePlanMutation();
 
@@ -60,7 +63,7 @@ const Plans: FC<PlansProps> = () => {
     return <CustomError text="plans" />;
   }
 
-  const plans = data as Plan[];
+  const plans = data.data as Plan[];
 
   const handlePlanDelete = async (plan: Plan) => {
     const confirmed = confirm(`Are you sure you want to delete ${plan.title}?`);
@@ -141,7 +144,7 @@ const Plans: FC<PlansProps> = () => {
                         </Menu>
                       </Flex>
                     </Group>
-                    <Text>{plan.description}</Text>
+                    <Text className="line-clamp-3">{plan.description}</Text>
                     <Button
                       component={Link}
                       href={`/plans/${plan.id}`}

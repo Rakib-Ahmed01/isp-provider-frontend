@@ -4,7 +4,6 @@ import useAuthCheck from '@/hooks/useAuthCheck';
 import { signout } from '@/lib/signout';
 import { selectUser } from '@/redux/features/auth/authSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-// import classes from '@/styles/navbar.module.css';
 import {
   AppShell,
   Burger,
@@ -64,7 +63,7 @@ export function Navbar({ toggle, opened, classes }: NavbarProps) {
 
   return (
     <>
-      <AppShell.Header>
+      <AppShell.Header className="container mx-auto">
         <Group h="100%" px="md">
           <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
           <Group justify="space-between" style={{ flex: 1 }}>

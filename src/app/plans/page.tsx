@@ -28,7 +28,7 @@ interface PlansProps {}
 const Plans: FC<PlansProps> = () => {
   const [activePage, setPage] = useState<number>(1);
   const { isLoading, data, isError } = useGetPlansQuery({
-    size: 5,
+    size: 6,
     page: activePage,
   });
   const [opened, { open, close }] = useDisclosure(false);
@@ -78,6 +78,11 @@ const Plans: FC<PlansProps> = () => {
     );
   });
 
+  const totalPage =
+    searchText || minPrice || minSpeed || maxPrice !== 4000 || maxSpeed !== 100
+      ? Math.ceil(filteredPlans.length / 6)
+      : data?.meta?.totalPage;
+
   return (
     <Box component="section">
       <Modal opened={opened} onClose={close}>
@@ -87,6 +92,7 @@ const Plans: FC<PlansProps> = () => {
             <TextInput
               placeholder="Search plan by name"
               onChange={(e) => setSearchText(e.target.value)}
+              value={searchText}
             />
           </Box>
           <Box>
@@ -131,7 +137,7 @@ const Plans: FC<PlansProps> = () => {
       </Flex>
 
       <SimpleGrid
-        cols={{ xs: 1, sm: 2, md: 3 }}
+        cols={{ xs: 1, md: 2, lg: 3 }}
         spacing={{ xs: 15, md: 30 }}
         verticalSpacing={{ xs: 15, md: 30 }}
       >
@@ -151,7 +157,9 @@ const Plans: FC<PlansProps> = () => {
                       </Flex>
                       <Badge variant="filled">{plan.price}BDT</Badge>
                     </Group>
-                    <Text c={'dimmed'}>{plan.description}</Text>
+                    <Text c={'dimmed'} className="line-clamp-3">
+                      {plan.description}
+                    </Text>
                     <Button
                       component={Link}
                       href={`/plans/${plan.id}`}
@@ -171,7 +179,7 @@ const Plans: FC<PlansProps> = () => {
 
       <Flex justify={'center'} className="mx-auto">
         <Pagination
-          total={data?.meta?.totalPage || 10}
+          total={totalPage || 10}
           value={activePage}
           onChange={setPage}
           className="mt-10"

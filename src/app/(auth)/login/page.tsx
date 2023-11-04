@@ -28,8 +28,8 @@ export default function Login(props: PaperProps) {
   const form = useForm({
     validate: zodResolver(loginUserZodSchema),
     initialValues: {
-      email: 'rakibahmed@gmail.com',
-      password: '123456',
+      email: '',
+      password: '',
     },
   });
 
@@ -64,12 +64,14 @@ export default function Login(props: PaperProps) {
         <form onSubmit={form.onSubmit(handleLogin)}>
           <Stack>
             <TextInput
+              withAsterisk
               label="Email"
               placeholder="yourname@example.com"
               {...form.getInputProps('email')}
               radius="md"
             />
             <PasswordInput
+              withAsterisk
               label="Password"
               placeholder="Your password"
               {...form.getInputProps('password')}

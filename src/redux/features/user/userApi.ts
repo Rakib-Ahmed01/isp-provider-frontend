@@ -1,7 +1,8 @@
 import { AUTH_TOKEN_KEY } from '@/lib/constants';
 import { RootState } from '@/redux/store';
+import jwt_decode from 'jwt-decode';
 import { apiSlice } from '../../api/apiSlice';
-import { loggedIn } from '../auth/authSlice';
+import { AuthState, loggedIn } from '../auth/authSlice';
 
 const userApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -24,33 +25,36 @@ const userApi = apiSlice.injectEndpoints({
           const result = await queryFulfilled;
           const updatedUser = result.data as User;
           const { token } = (getState() as RootState).auth;
+          const userData = jwt_decode(token) as AuthState['user'];
 
-          // setting the response to the local storage
-          localStorage.setItem(
-            AUTH_TOKEN_KEY,
-            JSON.stringify({
-              token,
-              user: {
-                id: updatedUser.id,
-                name: updatedUser.name,
-                role: updatedUser.role,
-                profileImg: updatedUser.profileImg,
-              },
-            })
-          );
+          if (updatedUser.id === userData.id) {
+            // setting the response to the local storage
+            localStorage.setItem(
+              AUTH_TOKEN_KEY,
+              JSON.stringify({
+                token,
+                user: {
+                  id: updatedUser.id,
+                  name: updatedUser.name,
+                  role: updatedUser.role,
+                  profileImg: updatedUser.profileImg,
+                },
+              })
+            );
 
-          // storing the response in the redux store
-          dispatch(
-            loggedIn({
-              token,
-              user: {
-                id: updatedUser.id,
-                name: updatedUser.name,
-                role: updatedUser.role,
-                profileImg: updatedUser.profileImg,
-              },
-            })
-          );
+            // storing the response in the redux store
+            dispatch(
+              loggedIn({
+                token,
+                user: {
+                  id: updatedUser.id,
+                  name: updatedUser.name,
+                  role: updatedUser.role,
+                  profileImg: updatedUser.profileImg,
+                },
+              })
+            );
+          }
         } catch (error) {
           // handle error
           console.log(error);

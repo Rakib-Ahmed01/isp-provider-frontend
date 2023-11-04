@@ -5,9 +5,11 @@ export default function Banner() {
   return (
     <Box
       component="section"
-      className="h-[70vh] border items-center flex flex-col justify-center gap-5"
+      className="h-[80vh] border items-center flex flex-col justify-center gap-5"
     >
-      <Title>QuickNet Your Gateway to High-Speed Internet</Title>
+      <Title className="text-center">
+        QuickNet Your Gateway to High-Speed Internet
+      </Title>
       <Text className="max-w-5xl text-center" c={'gray.6'}>
         Unlock a world of possibilities with QuickNet, your gateway to
         high-speed internet. Say goodbye to buffering and slow downloads and

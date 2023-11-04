@@ -106,7 +106,9 @@ const Blogs: FC<BlogsProps> = () => {
                 </Menu.Dropdown>
               </Menu>
             </Flex>
-            <Text c={'dimmed'}>{blog.content.slice(0, 200)}...</Text>
+            <Text c={'dimmed'} className="line-clamp-3">
+              {blog.content.slice(0, 200)}...
+            </Text>
           </Card>
         ))}
       </SimpleGrid>

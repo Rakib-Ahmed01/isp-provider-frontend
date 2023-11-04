@@ -59,11 +59,8 @@ export default function DashboardLayout({
   }
 
   return (
-    <section className="flex gap-5">
-      <div className="hidden sm:block">
-        <DashboardSidebar data={data} initialActive={initialActive} />
-      </div>
-      <Box className="fixed bottom-5 right-5 sm:hidden">
+    <section className="w-full">
+      <Box className="fixed bottom-5 right-5 sm:hidden z-10">
         <Burger
           opened={opened}
           onClick={toggle}
@@ -79,7 +76,12 @@ export default function DashboardLayout({
       >
         <DashboardSidebar data={data} initialActive={initialActive} />
       </Drawer>
-      {children}
+      <div className="flex justify-between w-full">
+        <div className="hidden sm:block border">
+          <DashboardSidebar data={data} initialActive={initialActive} />
+        </div>
+        <div className="sm:basis-3/4 sm:mx-auto">{children}</div>
+      </div>
     </section>
   );
 }

@@ -36,7 +36,9 @@ const Blogs: FC<BlogsProps> = () => {
             return (
               <Card withBorder key={blog.id} className="space-y-4">
                 <Title order={3}>{blog.title}</Title>
-                <Text c={'dimmed'}>{blog.content.slice(0, 200)}...</Text>
+                <Text c={'dimmed'} className="line-clamp-3">
+                  {blog.content.slice(0, 200)}...
+                </Text>
                 <Button
                   variant="light"
                   component={Link}

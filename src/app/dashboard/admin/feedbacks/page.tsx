@@ -44,6 +44,7 @@ const Feedbacks: FC<FeedbacksProps> = () => {
                 height={30}
                 priority={true}
                 alt={feedback.user.name}
+                className="rounded-full"
               />
               <Flex direction="column">
                 <Text>{feedback.user.name}</Text>
