@@ -42,7 +42,7 @@ const Plans: FC<PlansProps> = () => {
     return (
       <Box component="section" mt={'50'}>
         <SimpleGrid
-          cols={{ xs: 1, sm: 2, md: 3 }}
+          cols={{ xs: 1, md: 2, lg: 3 }}
           spacing={{ xs: 15, md: 30 }}
           verticalSpacing={{ xs: 15, md: 30 }}
         >

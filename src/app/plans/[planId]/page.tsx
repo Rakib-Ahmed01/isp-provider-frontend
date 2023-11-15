@@ -3,6 +3,7 @@
 import CustomError from '@/components/ui/custom-error';
 import Spinner from '@/components/ui/spinner';
 import { useUser } from '@/hooks/useUser';
+import getStipePromise from '@/lib/stripe';
 import {
   CreateReviewType,
   createReviewZodSchema,
@@ -89,9 +90,24 @@ const Plan: FC<PlanProps> = ({ params: { planId } }) => {
 
   const handleBuyNow = async () => {
     try {
-      await createOrder({ planId, userId: user.id }).unwrap();
-      toast.success('Thank you for your order ❤');
-      router.push(`/dashboard/user/orders`);
+      const stripe = await getStipePromise();
+      const response = await fetch('/api/stripe-session/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        cache: 'no-cache',
+        body: JSON.stringify({ plan, userId: user.id }),
+      });
+
+      const data = await response.json();
+      if (data.session) {
+        await stripe?.redirectToCheckout({ sessionId: data.session.id });
+      }
+      // await createOrder({ planId, userId: user.id })
+      //   .unwrap()
+      //   .then(() => {
+      //     toast.success('Thank you for your order ❤');
+      //     router.push(`/dashboard/user/orders`);
+      //   });
     } catch (error: any) {
       console.log(error);
       if (error?.data?.errors && error.data.errors[0].message) {

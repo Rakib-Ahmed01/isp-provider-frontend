@@ -3,7 +3,7 @@
 import CustomError from '@/components/ui/custom-error';
 import Spinner from '@/components/ui/spinner';
 import { useGetAllBlogsQuery } from '@/redux/features/blogs/blogsApi';
-import { Box, Button, Card, SimpleGrid, Text, Title } from '@mantine/core';
+import { Box, Card, SimpleGrid, Text, Title } from '@mantine/core';
 import Link from 'next/link';
 import { FC } from 'react';
 
@@ -37,18 +37,24 @@ const Blogs: FC<BlogsProps> = () => {
         ) : (
           blogs.slice(0, 3).map((blog) => {
             return (
-              <Card withBorder key={blog.id} className="space-y-4">
+              <Card
+                withBorder
+                key={blog.id}
+                className="space-y-4"
+                component={Link}
+                href={`/blogs/${blog.id}`}
+              >
                 <Title order={3}>{blog.title}</Title>
                 <Text c={'dimmed'} className="line-clamp-3">
                   {blog.content.slice(0, 200)}...
                 </Text>
-                <Button
+                {/* <Button
                   variant="light"
                   component={Link}
                   href={`/blogs/${blog.id}`}
                 >
                   Read more
-                </Button>
+                </Button> */}
               </Card>
             );
           })
